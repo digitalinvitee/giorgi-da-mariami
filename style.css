@@ -1,0 +1,2459 @@
+/* =========================================================
+   LOCAL GEORGIAN FONTS
+========================================================= */
+
+@font-face {
+  font-family: "Kupiura";
+  src: url("assets/gl-kupiura-medium-37268379451.ttf") format("truetype");
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Dumbadze";
+  src: url("assets/gl-dumbadze-garnituri-semi-bold-22441730243.ttf") format("truetype");
+  font-weight: 600;
+  font-style: normal;
+  font-display: swap;
+}
+
+:root {
+  --ivory: #f3eee5;
+  --paper: #f7f3eb;
+  --espresso: #432b25;
+  --espresso-soft: #50322a;
+  --olive: #74754d;
+  --olive-soft: #99986b;
+  --ink: #382a26;
+  --muted: #766963;
+  --hairline: rgba(67, 43, 37, .18);
+
+  --font-kupiura: "Kupiura", serif;
+  --font-dumbadze: "Dumbadze", serif;
+
+  /* Existing selectors can keep using these variables */
+  --serif-ka: var(--font-dumbadze);
+  --sans-ka: var(--font-dumbadze);
+  --serif-en: var(--font-kupiura);
+  --sans-en: var(--font-kupiura);
+
+  --section-gap: clamp(14px, 2.4vw, 26px);
+  --content-max: 720px;
+}
+
+*,
+*::before,
+*::after { box-sizing: border-box; }
+
+html {
+  scroll-behavior: smooth;
+  background-color: #f5eee2;
+}
+
+body {
+  margin: 0;
+  min-width: 320px;
+  min-height: 100%;
+  overflow-x: hidden;
+
+  /* ONE CONTINUOUS PAPER BACKGROUND FOR THE WHOLE WEBSITE */
+  background-color: #f5eee2;
+  background-image: url("assets/paper2.png");
+  background-size: 100% auto;
+  background-position: top center;
+  background-repeat: repeat-y;
+
+  color: var(--ink);
+  font-family: var(--serif-ka);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+body.invitation-locked {
+  height: 100svh;
+  overflow: hidden;
+}
+
+main {
+  width: 100%;
+  overflow: clip;
+}
+
+img {
+  display: block;
+  max-width: 100%;
+  -webkit-user-drag: none;
+  user-select: none;
+}
+
+button,
+input,
+select,
+textarea { font: inherit; }
+
+button,
+a,
+input,
+select,
+textarea { -webkit-tap-highlight-color: transparent; }
+
+a { color: inherit; }
+
+:focus-visible {
+  outline: 1px solid var(--olive);
+  outline-offset: 4px;
+}
+
+/* =========================================================
+   OPENING
+========================================================= */
+
+.opening {
+  position: relative;
+  min-height: 100svh;
+  display: grid;
+  place-items: center;
+  padding: 48px 0 58px;
+  overflow: hidden;
+  background: transparent;
+}
+
+.opening-copy {
+  position: absolute;
+  top: max(24px, env(safe-area-inset-top));
+  left: 50%;
+  z-index: 20;
+  width: 100%;
+  transform: translateX(-50%);
+  text-align: center;
+  pointer-events: none;
+}
+
+.eyebrow,
+.section-kicker {
+  margin: 0;
+  font-family: var(--sans-ka);
+  font-size: clamp(.56rem, 1.3vw, .64rem);
+  font-weight: 500;
+  letter-spacing: .08em;
+  color: var(--olive);
+}
+
+.tap-note {
+  margin: 7px 0 0;
+  font-size: clamp(.78rem, 1.7vw, .9rem);
+  color: var(--muted);
+}
+
+.envelope-stage {
+  position: relative;
+  width: min(104vw, 900px);
+  padding: 0;
+  border: 0;
+  background: transparent;
+  cursor: pointer;
+  perspective: 1900px;
+  transform: translateY(5svh);
+}
+
+.envelope-shell {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 1.632 / 1;
+  transform-style: preserve-3d;
+  filter: drop-shadow(0 22px 24px rgba(48, 29, 23, .16));
+}
+
+.envelope-back,
+.envelope-front {
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: fill;
+  pointer-events: none;
+}
+
+.envelope-back { z-index: 1; }
+
+/* Only the lower pocket remains visible after opening */
+.envelope-front {
+  z-index: 6;
+
+  /* Exact old front-pocket geometry.
+     The card sits BEHIND this layer, so it really looks like
+     it is coming out from inside the envelope. */
+  clip-path: polygon(
+    0 0,
+    38% 49%,
+    62% 49%,
+    100% 0,
+    100% 100%,
+    0 100%
+  );
+}
+
+.invite-card {
+  position: absolute;
+  z-index: 4;
+  left: 8%;
+  bottom: 10%;
+  width: 84%;
+  height: 72%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 1.2rem 1.3rem 3rem;
+  overflow: visible;
+  text-align: center;
+  background: var(--paper);
+  border: 0;
+  box-shadow: 0 6px 16px rgba(44, 29, 24, .08);
+  opacity: 0;
+  visibility: hidden;
+  will-change: transform, opacity;
+}
+
+.card-kicker {
+  margin: 0;
+  font-family: var(--sans-ka);
+  font-size: clamp(.5rem, 1.3vw, .63rem);
+  font-weight: 500;
+  letter-spacing: .07em;
+  color: var(--olive);
+}
+
+.invite-card h1 {
+  margin: .55rem 0 .45rem;
+  font-family: var(--serif-ka);
+  font-size: clamp(1.75rem, 5vw, 3.45rem);
+  font-weight: 400;
+  line-height: .93;
+}
+
+.invite-card h1 span,
+.invite-card h1 i { display: block; }
+
+.invite-card h1 i {
+  margin: .22rem 0;
+  font-family: var(--serif-en);
+  font-size: .52em;
+  font-weight: 400;
+  font-style: italic;
+  color: var(--olive);
+}
+
+.invite-copy {
+  max-width: 25rem;
+  margin: .45rem auto .6rem;
+  font-family: var(--serif-ka);
+  font-size: clamp(.68rem, 1.55vw, .9rem);
+  line-height: 1.58;
+  color: var(--muted);
+}
+
+.invite-card time {
+  font-family: var(--sans-en);
+  font-size: .62rem;
+  font-weight: 500;
+  letter-spacing: .16em;
+}
+
+.invite-ring {
+  position: absolute;
+  left: 50%;
+  bottom: -11%;
+  z-index: 8;
+  width: clamp(45px, 10vw, 82px);
+  opacity: 0;
+  transform: translateX(-50%) translateY(24px) scale(.82);
+  filter: drop-shadow(0 5px 6px rgba(30, 20, 13, .14));
+  pointer-events: none;
+  will-change: transform, opacity;
+}
+
+.envelope-flap {
+  position: absolute;
+  z-index: 8;
+  left: -.08%;
+  top: -1px;
+  width: 100.16%;
+  transform: rotateX(0deg);
+  transform-origin: 50% 1px;
+  backface-visibility: visible;
+  pointer-events: none;
+  will-change: transform;
+}
+
+.wax-seal {
+  position: absolute;
+  z-index: 10;
+  left: 50%;
+  top: 53%;
+  width: clamp(4.6rem, 13vw, 7rem);
+  transform: translate(-50%, -50%);
+  filter: drop-shadow(0 6px 7px rgba(30, 20, 13, .2));
+  pointer-events: none;
+  will-change: transform, opacity;
+}
+
+.envelope-flower {
+  position: absolute;
+  z-index: 9;
+  right: -1%;
+  bottom: -3%;
+  width: clamp(80px, 17vw, 145px);
+  opacity: 0;
+  transform: translate(32px, 22px) scale(.86);
+  filter: drop-shadow(0 7px 9px rgba(30, 20, 15, .12));
+  pointer-events: none;
+  will-change: transform, opacity;
+}
+
+.opening-scroll {
+  position: absolute;
+  left: 50%;
+  bottom: max(12px, env(safe-area-inset-bottom));
+  z-index: 20;
+  transform: translateX(-50%);
+  opacity: 0;
+  text-align: center;
+  pointer-events: none;
+}
+
+.opening-scroll span {
+  font-family: var(--sans-en);
+  font-size: .5rem;
+  font-weight: 500;
+  letter-spacing: .18em;
+  text-transform: uppercase;
+}
+
+.opening-scroll i {
+  display: block;
+  width: 1px;
+  height: 26px;
+  margin: 6px auto 0;
+  background: var(--olive);
+}
+
+/* =========================================================
+   CONTINUOUS FLOW
+========================================================= */
+
+.invitation-flow {
+  width: 100%;
+  padding: 12px 0 36px;
+  background: transparent;
+}
+
+.content-section {
+  position: relative;
+  width: min(94vw, var(--content-max));
+  margin: 0 auto var(--section-gap);
+  padding: 0;
+}
+
+.content-section:last-child { margin-bottom: 0; }
+
+.asset-card {
+  position: relative;
+  width: 100%;
+  margin: 0 auto;
+}
+
+.card-bg {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  height: auto;
+  pointer-events: none;
+}
+
+.asset-content {
+  position: absolute;
+  z-index: 2;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+
+/* =========================================================
+   ARCH
+========================================================= */
+
+.arch-section {
+  width: min(72vw, 400px);
+  margin-bottom: 12px;
+}
+
+.arch-content { padding: 10% 12% 8%; }
+
+.arch-bow {
+  width: clamp(58px, 15vw, 86px);
+  margin-bottom: clamp(7px, 2vw, 13px);
+}
+
+.small-script {
+  margin: 0 0 8px;
+  font-family: var(--serif-ka);
+  font-size: clamp(.68rem, 1.9vw, .88rem);
+  color: rgba(247, 240, 230, .78);
+}
+
+.couple-names {
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  color: #f6efe6;
+  font-family: var(--serif-ka);
+  font-size: clamp(2.25rem, 8.3vw, 4rem);
+  font-weight: 400;
+  line-height: .94;
+  transform: translateY(-50px);
+}
+
+.couple-names em {
+  margin: .28rem 0;
+  font-family: var(--serif-en);
+  font-size: .42em;
+  font-weight: 400;
+  color: var(--olive-soft);
+}
+
+.date-stack {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  margin-top: 12px;
+  color: #f6efe6;
+  font-family: var(--sans-en);
+  font-size: .73rem;
+  font-weight: 500;
+  letter-spacing: .14em;
+}
+
+.date-stack i {
+  width: 2px;
+  height: 2px;
+  border-radius: 50%;
+  background: var(--olive-soft);
+}
+
+/* =========================================================
+   GALLERY
+========================================================= */
+
+.gallery-section {
+  width: min(88vw, 560px);
+  margin-bottom: 14px;
+}
+
+.gallery-inner {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: clamp(9px, 2.4vw, 16px);
+}
+
+.polaroid {
+  margin: 0;
+  padding: clamp(6px, 1.3vw, 9px) clamp(6px, 1.3vw, 9px) clamp(16px, 3.8vw, 25px);
+  background: #f8f3ea;
+  box-shadow: 0 10px 24px rgba(59, 40, 32, .1);
+}
+
+.polaroid img {
+  width: 100%;
+  aspect-ratio: 4 / 5;
+  object-fit: cover;
+}
+
+/* =========================================================
+   DETAILS
+========================================================= */
+
+.details-section {
+  width: min(76vw, 480px);
+  margin-bottom: 12px;
+}
+
+.details-content {
+  padding: 10.5% 12% 8%;
+  color: #f5eee5;
+}
+
+.map-note {
+  margin: 0 0 11px;
+  font-family: var(--sans-ka);
+  font-size: clamp(.46rem, 1.15vw, .53rem);
+  font-weight: 400;
+  line-height: 1.45;
+  color: var(--olive-soft);
+}
+
+.details-title {
+  margin: 0 0 clamp(16px, 3.2vw, 24px);
+  font-family: var(--serif-ka);
+  font-size: clamp(1.85rem, 6vw, 3.15rem);
+  font-weight: 400;
+  line-height: 1.08;
+}
+
+.timeline-event {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.timeline-event time {
+  margin-bottom: 4px;
+  font-family: var(--serif-en);
+  font-size: clamp(1.45rem, 4.5vw, 2.15rem);
+  font-style: italic;
+  line-height: 1;
+}
+
+.timeline-event p {
+  margin: 0 0 4px;
+  font-family: var(--sans-ka);
+  font-size: clamp(.58rem, 1.55vw, .74rem);
+  font-weight: 400;
+  line-height: 1.45;
+}
+
+.timeline-event .place,
+.timeline-event a {
+  font-family: var(--sans-ka);
+  font-size: clamp(.6rem, 1.5vw, .7rem);
+  line-height: 1.45;
+  color: var(--olive-soft);
+}
+
+.timeline-event a {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-decoration: none;
+}
+
+.timeline-event a:hover { color: #b0b083; }
+
+.timeline-event a small {
+  margin-top: 2px;
+  font-size: .86em;
+  font-weight: 400;
+}
+
+.timeline-line {
+  display: block;
+  width: 1px;
+  height: clamp(20px, 4vw, 30px);
+  margin: clamp(7px, 1.7vw, 11px) auto;
+  background: rgba(153, 152, 107, .7);
+}
+
+
+/* =========================================================
+   CINEMATIC WORLD — LARGER / GROUNDED / DANCING
+========================================================= */
+
+.walk-scene {
+  position: relative;
+  width: 100%;
+  margin: -2px 0 14px;
+  overflow: hidden;
+  background: transparent;
+  contain: layout paint;
+}
+
+.walk-stage {
+  position: relative;
+  width: 100%;
+  height: clamp(520px, 72svh, 720px);
+  overflow: hidden;
+  isolation: isolate;
+  background: #e8d8c2;
+  transform: translateZ(0);
+}
+
+/* Background remains fixed — only the illustrated people travel */
+.walk-background {
+  position: absolute;
+  z-index: 0;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center center;
+  pointer-events: none;
+  user-select: none;
+  transform: scale(1.02);
+}
+
+.walk-stage::after {
+  content: "";
+  position: absolute;
+  z-index: 2;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 18%;
+  pointer-events: none;
+  background: linear-gradient(
+    to top,
+    rgba(142, 112, 77, .12),
+    rgba(142, 112, 77, 0)
+  );
+}
+
+/* The complete cast travels as one continuous wedding world */
+.walk-world {
+  position: absolute;
+  z-index: 4;
+  inset: 0 auto 0 0;
+  width: 250vw;
+  height: 100%;
+  pointer-events: none;
+  will-change: transform;
+  backface-visibility: hidden;
+  transform: translate3d(0,0,0);
+}
+
+/*
+  IMPORTANT:
+  negative/near-zero bottom makes the feet visually meet the floor.
+  transform-origin at the feet makes rotation look like dancing,
+  rather than floating around the center of the PNG.
+*/
+.dancing-woman,
+.dancing-man,
+.dancing-couple,
+.tuba-player {
+  position: absolute;
+  bottom: -1.5%;
+  height: auto;
+  object-fit: contain;
+  object-position: center bottom;
+  transform-origin: 50% 98%;
+  will-change: transform;
+  backface-visibility: hidden;
+  filter: drop-shadow(0 9px 4px rgba(71, 52, 37, .13));
+}
+
+.dancing-woman {
+  left: 30vw;
+  z-index: 5;
+  width: clamp(190px, 26vw, 355px);
+}
+
+.dancing-man {
+  left: 82vw;
+  z-index: 5;
+  width: clamp(185px, 25vw, 340px);
+}
+
+.dancing-couple {
+  left: 137vw;
+  z-index: 7;
+  width: clamp(175px, 23vw, 315px);
+}
+
+.tuba-player {
+  left: 202vw;
+  z-index: 5;
+  width: clamp(175px, 23vw, 315px);
+}
+
+/* Waiter is also grounded and slightly larger */
+.waiter-rig {
+  position: absolute;
+  left: 0;
+  bottom: -1%;
+  z-index: 10;
+  width: clamp(240px, 31vw, 420px);
+  height: min(82%, 650px);
+  pointer-events: none;
+  transform-origin: 50% 100%;
+  will-change: transform;
+  backface-visibility: hidden;
+  transform: translate3d(0,0,0);
+}
+
+.walk-waiter,
+.waiter-shadow {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  object-position: center bottom;
+  transform-origin: 50% 100%;
+  will-change: transform;
+  backface-visibility: hidden;
+}
+
+.walk-waiter {
+  left: 0;
+  z-index: 2;
+  filter: drop-shadow(0 10px 4px rgba(71, 52, 37, .12));
+}
+
+.waiter-shadow {
+  left: 7%;
+  z-index: 1;
+  height: 97%;
+  opacity: .18;
+  filter: blur(.4px);
+}
+
+/*
+  Cupid begins ABOVE the frame.
+  JS makes it drop down when the couple reaches the central viewing zone.
+*/
+.walk-cupid {
+  position: absolute;
+  left: 0;
+  top: 0;
+  z-index: 14;
+  width: clamp(110px, 15vw, 205px);
+  opacity: 0;
+  pointer-events: none;
+  transform-origin: center;
+  will-change: transform, opacity;
+  backface-visibility: hidden;
+  filter: drop-shadow(0 8px 4px rgba(91, 65, 43, .10));
+}
+
+.walk-loop-curtain {
+  position: absolute;
+  inset: 0;
+  z-index: 50;
+  background: #e8d8c2;
+  opacity: 1;
+  pointer-events: none;
+  will-change: opacity;
+}
+
+@media (max-width: 900px) {
+  .walk-stage {
+    height: clamp(500px, 68svh, 650px);
+  }
+
+  .walk-world {
+    width: 270vw;
+  }
+
+  .waiter-rig {
+    width: clamp(220px, 39vw, 330px);
+    height: 79%;
+  }
+}
+
+@media (max-width: 820px) {
+  .content-section { width: min(92vw, var(--content-max)); }
+  .opening-copy { top: max(20px, env(safe-area-inset-top)); }
+  .countdown { max-width: 92vw; }
+}
+
+@media (max-width: 600px) {
+  .walk-scene { margin-bottom: 12px; }
+
+  .walk-stage {
+    height: clamp(470px, 66svh, 590px);
+  }
+
+  .walk-background {
+    object-position: center center;
+    transform: scale(1.035);
+  }
+
+  .walk-world {
+    width: 300vw;
+  }
+
+  .dancing-woman {
+    left: 36vw;
+    bottom: -2%;
+    width: 43vw;
+    max-width: 205px;
+  }
+
+  .dancing-man {
+    left: 102vw;
+    bottom: -2%;
+    width: 41vw;
+    max-width: 198px;
+  }
+
+  .dancing-couple {
+    left: 169vw;
+    bottom: -2%;
+    width: 39vw;
+    max-width: 188px;
+  }
+
+  .tuba-player {
+    left: 244vw;
+    bottom: -2%;
+    width: 39vw;
+    max-width: 188px;
+  }
+
+  .waiter-rig {
+    bottom: -1.5%;
+    width: 52vw;
+    max-width: 255px;
+    height: 76%;
+  }
+
+  .walk-cupid {
+    width: 27vw;
+    max-width: 132px;
+  }
+}
+
+@media (max-width: 380px) {
+  .walk-stage { height: clamp(450px, 64svh, 550px); }
+}
+
+/* =========================================================
+   DRESS CODE
+========================================================= */
+
+.dress-section {
+  width: min(88vw, 580px);
+  margin-bottom: 12px;
+}
+
+.dress-content { padding: 10% 14%; }
+
+.dress-content h2,
+.rsvp-content h2,
+.countdown-inner h2 {
+  font-family: var(--serif-ka);
+  font-weight: 400;
+}
+
+.dress-content h2 {
+  margin: 3px 0 8px;
+  font-size: clamp(1.75rem, 5.8vw, 3rem);
+}
+
+.dress-content p {
+  max-width: 400px;
+  margin: 3px auto;
+  font-size: clamp(.68rem, 1.7vw, .84rem);
+  line-height: 1.55;
+}
+
+.dress-note {
+  font-size: clamp(.62rem, 1.55vw, .76rem);
+  color: rgba(56,42,38,.78);
+}
+
+.palette {
+  display: flex;
+  justify-content: center;
+  gap: 7px;
+  margin-top: 12px;
+}
+
+.palette span {
+  width: clamp(18px, 4.4vw, 27px);
+  height: clamp(18px, 4.4vw, 27px);
+  border: 1px solid rgba(67,43,37,.08);
+  border-radius: 50%;
+  background: var(--color);
+  box-shadow: inset 0 0 0 1px rgba(255,255,255,.25);
+}
+
+/* =========================================================
+   RSVP
+========================================================= */
+
+.rsvp-section {
+  width: min(80vw, 480px);
+  margin-bottom: 14px;
+}
+
+.rsvp-content { padding: 10% 12% 8%; }
+
+.rsvp-content h2 {
+  margin: 3px 0 7px;
+  font-size: clamp(1.75rem, 5.8vw, 3rem);
+}
+
+.rsvp-intro {
+  max-width: 330px;
+  margin: 0 auto 13px;
+  font-size: clamp(.68rem, 1.7vw, .8rem);
+  line-height: 1.55;
+  color: var(--muted);
+}
+
+#rsvpForm {
+  width: min(100%, 340px);
+  margin: 0 auto;
+  text-align: left;
+}
+
+#rsvpForm label {
+  display: block;
+  margin-bottom: 10px;
+}
+
+#rsvpForm label span {
+  display: block;
+  margin-bottom: 3px;
+  font-family: var(--sans-ka);
+  font-size: .5rem;
+  font-weight: 500;
+  letter-spacing: .05em;
+  color: var(--olive);
+}
+
+input,
+select,
+textarea {
+  width: 100%;
+  padding: 7px 1px;
+  border: 0;
+  border-bottom: 1px solid var(--hairline);
+  border-radius: 0;
+  outline: 0;
+  background: transparent;
+  color: var(--ink);
+  font-family: var(--serif-ka);
+  font-size: .84rem;
+  transition: border-color .2s ease;
+}
+
+input:focus,
+select:focus,
+textarea:focus { border-bottom-color: var(--olive); }
+
+textarea { resize: vertical; min-height: 54px; }
+
+.submit-btn {
+  width: 100%;
+  margin-top: 5px;
+  padding: 10px 14px;
+  border: 1px solid rgba(67,43,37,.78);
+  border-radius: 999px;
+  background: transparent;
+  color: var(--espresso);
+  font-family: var(--sans-ka);
+  font-size: .54rem;
+  font-weight: 500;
+  letter-spacing: .05em;
+  cursor: pointer;
+  transition: background .25s ease, color .25s ease, transform .25s ease;
+}
+
+.submit-btn:hover {
+  background: var(--espresso);
+  color: var(--paper);
+}
+
+.submit-btn:active { transform: scale(.985); }
+
+.form-status {
+  min-height: 1.2em;
+  margin: 7px 0 0;
+  text-align: center;
+  font-family: var(--sans-ka);
+  font-size: .56rem;
+  color: var(--muted);
+}
+
+/* =========================================================
+   COUNTDOWN
+========================================================= */
+
+.countdown-section {
+  width: min(92vw, 650px);
+  padding-top: 4px;
+  text-align: center;
+}
+
+.countdown-inner h2 {
+  margin: 5px 0 16px;
+  font-family: var(--serif-en);
+  font-size: clamp(1.9rem, 6vw, 3.2rem);
+  font-style: italic;
+}
+
+.countdown {
+  display: grid;
+  grid-template-columns: 1fr auto 1fr auto 1fr auto 1fr;
+  align-items: center;
+  max-width: 580px;
+  margin: 0 auto;
+}
+
+.countdown div {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.countdown strong {
+  font-family: var(--serif-en);
+  font-size: clamp(1.55rem, 5.5vw, 2.7rem);
+  font-weight: 400;
+  font-variant-numeric: tabular-nums;
+  line-height: 1;
+}
+
+.countdown span {
+  margin-top: 4px;
+  font-family: var(--sans-ka);
+  font-size: .44rem;
+  font-weight: 500;
+  letter-spacing: .04em;
+  color: var(--muted);
+}
+
+.countdown i {
+  width: 1px;
+  height: 24px;
+  background: var(--hairline);
+}
+
+.final-message {
+  margin: 18px 0 0;
+  font-size: clamp(1.15rem, 4vw, 1.9rem);
+  line-height: 1.35;
+  color: var(--espresso-soft);
+}
+/* =========================================================
+   COUNTDOWN BACKGROUND
+========================================================= */
+
+#countdownSection {
+  position: relative;
+
+  width: min(92vw, 720px);
+  min-height: 420px;
+
+  margin: 40px auto;
+  padding: 70px 35px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  background-image: url("assets/count.png");
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: 100% 100%;
+
+  overflow: visible;
+}
+
+#countdownSection .countdown-inner {
+  position: relative;
+  z-index: 2;
+
+  width: 100%;
+  text-align: center;
+}
+
+/* =========================================================
+   MOBILE
+========================================================= */
+
+@media (max-width: 600px) {
+  :root { --section-gap: 14px; }
+
+  .opening { padding: 42px 0 50px; }
+  .envelope-stage { width: 106vw; transform: translateY(3.5svh); }
+  .invite-card { left: 7%; width: 86%; height: 72%; bottom: 10%; padding: .7rem .8rem 2.35rem; }
+  .invite-ring { bottom: -10%; width: 50px; }
+  .envelope-flower { right: -3%; bottom: -5%; width: 88px; }
+
+  .invitation-flow { padding: 8px 0 30px; }
+
+  .arch-section { width: 76vw; }
+  .gallery-section { width: 88vw; }
+  .details-section { width: 82vw; }
+  .dress-section { width: 91vw; }
+  .rsvp-section { width: 88vw; }
+
+  .details-content { padding: 10.5% 12% 8%; }
+  .timeline-line { height: 20px; margin: 7px auto; }
+}
+
+@media (max-width: 380px) {
+  :root { --section-gap: 12px; }
+  .arch-section { width: 80vw; }
+  .details-section { width: 86vw; }
+  .rsvp-section { width: 91vw; }
+  .walk-stage { height: clamp(420px, 62svh, 530px); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after {
+    animation-duration: .01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: .01ms !important;
+  }
+}
+
+
+/* =========================================================
+   MOBILE + PERFORMANCE STABILITY FIX
+   Keep this block at the VERY END of style.css
+========================================================= */
+
+/* Avoid expensive smooth-scroll work on phones / rapid swipes */
+html {
+  scroll-behavior: auto;
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  overscroll-behavior-y: auto;
+  touch-action: pan-y;
+  background-attachment: scroll;
+}
+
+/* Do not keep the whole page promoted to GPU layers */
+.envelope-shell,
+.invite-card,
+.envelope-flap,
+.wax-seal,
+.envelope-flower,
+.walk-world,
+.waiter-rig,
+.walk-waiter,
+.waiter-shadow,
+.dancing-woman,
+.dancing-man,
+.dancing-couple,
+.tuba-player,
+.walk-cupid {
+  will-change: auto;
+}
+
+/* Only the visible cinematic scene gets active GPU hints */
+.walk-scene.is-active .walk-world,
+.walk-scene.is-active .waiter-rig,
+.walk-scene.is-active .walk-waiter,
+.walk-scene.is-active .waiter-shadow,
+.walk-scene.is-active .dancing-woman,
+.walk-scene.is-active .dancing-man,
+.walk-scene.is-active .dancing-couple,
+.walk-scene.is-active .tuba-player,
+.walk-scene.is-active .walk-cupid {
+  will-change: transform, opacity;
+}
+
+/* Lighter shadows are much cheaper on mobile */
+@media (max-width: 700px) {
+  .envelope-shell {
+    filter: drop-shadow(0 12px 16px rgba(48, 29, 23, .11));
+  }
+
+  .dancing-woman,
+  .dancing-man,
+  .dancing-couple,
+  .tuba-player,
+  .walk-waiter,
+  .walk-cupid {
+    filter: none;
+  }
+
+  .waiter-shadow {
+    filter: none;
+    opacity: .12;
+  }
+}
+
+
+/* =========================================================
+   PHONE — FIRST ENVELOPE
+========================================================= */
+
+@media (max-width: 600px) {
+
+  .opening {
+    min-height: 100svh;
+    padding:
+      max(56px, env(safe-area-inset-top))
+      0
+      max(42px, env(safe-area-inset-bottom));
+    overflow: hidden;
+  }
+
+  .opening-copy {
+    top: max(18px, env(safe-area-inset-top));
+  }
+
+  /*
+    104–106vw was too large on phones.
+    92vw keeps the whole envelope visible.
+  */
+  .envelope-stage {
+    width: min(92vw, 520px);
+    max-width: 92vw;
+    transform: translateY(2svh);
+    perspective: 1400px;
+  }
+
+  .envelope-shell {
+    width: 100%;
+  }
+
+  /* Slightly larger wax seal, as requested */
+  .wax-seal {
+    width: clamp(5rem, 22vw, 5.7rem);
+    top: 53%;
+  }
+
+  /* Flower remains clearly visible after opening */
+  .envelope-flower {
+    right: -2%;
+    bottom: -5%;
+    width: clamp(96px, 27vw, 122px);
+  }
+
+  .invite-card {
+    left: 7.5%;
+    width: 85%;
+    height: 72%;
+    bottom: 10%;
+    padding: .72rem .72rem 2.1rem;
+  }
+
+  .invite-card h1 {
+    margin: .38rem 0 .3rem;
+    font-size: clamp(1.35rem, 7vw, 2rem);
+    line-height: .95;
+  }
+
+  .card-kicker {
+    font-size: .47rem;
+  }
+
+  .invite-copy {
+    max-width: 18rem;
+    margin: .28rem auto .4rem;
+    font-size: clamp(.58rem, 2.6vw, .72rem);
+    line-height: 1.45;
+  }
+
+  .invite-card time {
+    font-size: .52rem;
+  }
+
+  .invite-ring {
+    width: 48px;
+    bottom: -10%;
+  }
+
+  /* Keep first-screen hint from colliding with envelope */
+  .opening-scroll {
+    bottom: max(8px, env(safe-area-inset-bottom));
+  }
+
+
+  /* =======================================================
+     GENERAL MOBILE FLOW
+  ======================================================= */
+
+  .invitation-flow {
+    padding-top: 10px;
+  }
+
+  .content-section {
+    width: min(91vw, var(--content-max));
+  }
+
+  .arch-section {
+    width: min(95vw, 500px);
+  }
+
+  .gallery-section {
+    width: 89vw;
+  }
+
+  .details-section {
+    width: min(84vw, 450px);
+  }
+
+  .dress-section {
+    width: min(91vw, 540px);
+  }
+
+  .rsvp-section {
+    width: min(89vw, 460px);
+  }
+
+  .countdown-section {
+    width: min(92vw, 620px);
+  }
+
+
+  /* =======================================================
+     MOBILE CINEMATIC — LIGHTER AND SMALLER
+  ======================================================= */
+
+  .walk-stage {
+    height: clamp(430px, 60svh, 540px);
+  }
+
+  .walk-background {
+    transform: none;
+  }
+
+  .walk-world {
+    width: 285vw;
+  }
+
+  .dancing-woman {
+    left: 36vw;
+    width: 39vw;
+    max-width: 178px;
+  }
+
+  .dancing-man {
+    left: 99vw;
+    width: 37vw;
+    max-width: 172px;
+  }
+
+  .dancing-couple {
+    left: 162vw;
+    width: 35vw;
+    max-width: 164px;
+  }
+
+  .tuba-player {
+    left: 228vw;
+    width: 35vw;
+    max-width: 164px;
+  }
+
+  .waiter-rig {
+    width: 47vw;
+    max-width: 220px;
+    height: 73%;
+  }
+
+  .walk-cupid {
+    width: 24vw;
+    max-width: 116px;
+  }
+}
+
+
+@media (max-width: 380px) {
+
+  .envelope-stage {
+    width: 90vw;
+    max-width: 90vw;
+  }
+
+  .wax-seal {
+    width: 4.9rem;
+  }
+
+  .envelope-flower {
+    width: 92px;
+  }
+
+  .walk-stage {
+    height: clamp(410px, 58svh, 500px);
+  }
+}
+
+
+/* =========================================================
+   REVEALS — CSS ONLY, NO SCROLLTRIGGER
+========================================================= */
+
+.reveal {
+  opacity: 1;
+  transform: none;
+}
+
+/* Only animate when JS adds the class, and only once */
+.js-reveal-ready .reveal {
+  opacity: 0;
+  transform: translate3d(0, 18px, 0);
+  transition:
+    opacity .55s ease,
+    transform .55s ease;
+}
+
+.js-reveal-ready .reveal.is-visible {
+  opacity: 1;
+  transform: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .js-reveal-ready .reveal {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+}
+
+/* =========================================================
+   FINAL TYPOGRAPHY
+   KUPIURA  = couple names + numbers
+   DUMBADZE = headings + all other Georgian text
+   KEEP THIS BLOCK AT THE VERY END
+========================================================= */
+
+/* Default text */
+html,
+body,
+button,
+input,
+select,
+textarea {
+  font-family: var(--font-dumbadze);
+}
+
+/* All normal text */
+p,
+a,
+label,
+small,
+button,
+input,
+select,
+textarea,
+.eyebrow,
+.section-kicker,
+.tap-note,
+.card-kicker,
+.invite-copy,
+.small-script,
+.map-note,
+.timeline-event p,
+.timeline-event .place,
+.timeline-event a,
+.timeline-event a small,
+.dress-content p,
+.dress-note,
+.rsvp-intro,
+#rsvpForm label span,
+.submit-btn,
+.form-status,
+.final-message,
+.countdown span,
+.opening-scroll span {
+  font-family: var(--font-dumbadze);
+  font-style: normal;
+}
+
+/* Headings — Dumbadze */
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+.details-title,
+.dress-content h2,
+.rsvp-content h2 {
+  font-family: var(--font-dumbadze);
+  font-style: normal;
+  font-weight: 600;
+}
+
+/* Couple names — Kupiura */
+.invite-card h1,
+.invite-card h1 span,
+.couple-names,
+.couple-names span,
+.couple-names em,
+.invite-card h1 i {
+  font-family: var(--font-kupiura);
+  font-style: normal;
+  font-weight: 500;
+}
+
+/* Important numbers — Kupiura */
+.invite-card time,
+.date-stack,
+.date-stack span,
+.timeline-event time,
+.countdown-inner h2,
+.countdown strong {
+  font-family: var(--font-kupiura);
+  font-style: normal;
+  font-weight: 500;
+}
+
+/* Countdown labels stay Dumbadze */
+.countdown span,
+.countdown-section .section-kicker,
+.final-message {
+  font-family: var(--font-dumbadze);
+}
+
+/* Form always Dumbadze */
+#rsvpForm,
+#rsvpForm label,
+#rsvpForm label span,
+#rsvpForm input,
+#rsvpForm select,
+#rsvpForm textarea,
+#rsvpForm button {
+  font-family: var(--font-dumbadze);
+}
+
+/* Keep countdown digits aligned */
+.countdown strong {
+  font-variant-numeric: tabular-nums;
+}
+
+/* Mobile typography */
+@media (max-width: 600px) {
+  .invite-card h1,
+  .couple-names,
+  .countdown-inner h2,
+  .countdown strong,
+  .timeline-event time,
+  .date-stack,
+  .invite-card time {
+    font-family: var(--font-kupiura);
+  }
+
+  .section-kicker,
+  .invite-copy,
+  .details-title,
+  .timeline-event p,
+  .dress-content h2,
+  .dress-content p,
+  .rsvp-content h2,
+  .rsvp-intro,
+  .final-message {
+    font-family: var(--font-dumbadze);
+  }
+}
+
+
+/* =========================================================
+   FINAL CONTENT + TYPOGRAPHY REFINEMENT
+   Requested unified wedding style
+========================================================= */
+
+:root {
+  --text-primary: #F4ECE1;   /* warm ivory */
+  --text-accent: #C7C39B;    /* muted sage */
+  --title-size: clamp(1.9rem, 5.4vw, 3rem);
+  --small-size: clamp(.72rem, 1.85vw, .86rem);
+}
+
+/* ---------------------------------------------------------
+   INTRO — instruction under the closed envelope
+--------------------------------------------------------- */
+
+.opening-copy {
+  top: auto;
+  bottom: max(22px, env(safe-area-inset-bottom));
+  width: 100%;
+  padding: 0 18px;
+}
+
+.tap-note {
+  margin: 0;
+  font-family: var(--font-dumbadze);
+  font-size: var(--small-size);
+  font-weight: 600;
+  line-height: 1.4;
+  color: #5E463C;
+}
+
+/* ---------------------------------------------------------
+   OPEN INVITATION CARD
+--------------------------------------------------------- */
+
+.invite-card {
+  color: #4B372F;
+}
+
+.invite-card .card-kicker {
+  margin: 0 0 14px;
+  font-family: var(--font-dumbadze);
+  font-size: clamp(1.25rem, 3.8vw, 1.85rem);
+  font-weight: 600;
+  line-height: 1.25;
+  letter-spacing: 0;
+  color: #4B372F;
+}
+
+.invite-copy {
+  max-width: 28rem;
+  margin: 0 auto 18px;
+  font-family: var(--font-dumbadze);
+  font-size: var(--small-size);
+  font-weight: 600;
+  line-height: 1.65;
+  color: #6A5147;
+}
+
+.invite-card time {
+  font-family: var(--font-kupiura);
+  font-size: clamp(1.1rem, 3vw, 1.45rem);
+  font-weight: 500;
+  letter-spacing: .04em;
+  color: #4B372F;
+}
+
+/* ---------------------------------------------------------
+   ARCH CARD
+--------------------------------------------------------- */
+
+.arch-content {
+  padding: 13% 12% 10%;
+  justify-content: center;
+}
+
+.arch-bow {
+  position: absolute;
+  top: 2.2%;
+  left: 50%;
+  transform: translateX(-50%);
+  width: clamp(68px, 17vw, 96px);
+  margin: 0;
+  z-index: 3;
+}
+
+.couple-names {
+  margin: 8% 0 0;
+  font-family: var(--font-kupiura);
+  font-size: clamp(2.65rem, 9vw, 4.6rem);
+  font-weight: 500;
+  line-height: .92;
+  color: var(--text-primary);
+  transform: translateY(-90px);
+}
+
+.couple-names em {
+  margin: .28rem 0;
+  color: var(--text-accent);
+}
+
+.date-stack {
+  margin-top: 18px;
+  gap: 6px;
+  font-family: var(--font-kupiura);
+  font-size: clamp(1.15rem, 3.2vw, 1.55rem);
+  font-weight: 500;
+  letter-spacing: .05em;
+  color: var(--text-primary);
+}
+
+.date-stack i {
+  width: 4px;
+  height: 4px;
+  background: var(--text-accent);
+}
+
+/* ---------------------------------------------------------
+   UNIFIED TITLES
+--------------------------------------------------------- */
+
+.details-title,
+.dress-content h2,
+.rsvp-content h2 {
+  font-family: var(--font-dumbadze);
+  font-size: var(--title-size);
+  font-weight: 600;
+  font-style: normal;
+  line-height: 1.1;
+  letter-spacing: 0;
+}
+
+/* ---------------------------------------------------------
+   DETAILS — title in one line, note beneath it
+--------------------------------------------------------- */
+
+.details-content {
+  padding: 11% 10% 8%;
+  color: var(--text-primary);
+}
+
+.details-title {
+  margin: 0 0 10px;
+  white-space: nowrap;
+  color: var(--text-primary);
+}
+
+.map-note {
+  margin: 0 0 22px;
+  font-family: var(--font-dumbadze);
+  font-size: var(--small-size);
+  font-weight: 600;
+  line-height: 1.45;
+  color: var(--text-accent);
+}
+
+.timeline-event time {
+  margin-bottom: 6px;
+  font-family: var(--font-kupiura);
+  font-size: clamp(1.8rem, 5vw, 2.55rem);
+  font-weight: 500;
+  font-style: normal;
+  color: var(--text-primary);
+}
+
+.timeline-event p,
+.timeline-event .place,
+.timeline-event a,
+.timeline-event a small {
+  font-family: var(--font-dumbadze);
+  font-size: var(--small-size);
+  font-weight: 600;
+  line-height: 1.5;
+}
+
+.timeline-event p {
+  margin: 0 0 4px;
+  color: var(--text-primary);
+}
+
+.timeline-event .place,
+.timeline-event a,
+.timeline-event a small {
+  color: var(--text-accent);
+}
+
+.timeline-line {
+  background: rgba(199, 195, 155, .7);
+}
+
+/* ---------------------------------------------------------
+   DRESS CODE
+--------------------------------------------------------- */
+
+.dress-content h2 {
+  margin: 0 0 14px;
+  color: #4B372F;
+}
+
+.dress-content p,
+.dress-note {
+  font-family: var(--font-dumbadze);
+  font-size: var(--small-size);
+  font-weight: 600;
+  line-height: 1.55;
+  color: #654F45;
+}
+
+.palette {
+  margin-top: 16px;
+  gap: 9px;
+}
+
+.palette span {
+  width: clamp(22px, 5vw, 30px);
+  height: clamp(22px, 5vw, 30px);
+  border: 1px solid rgba(75,55,47,.12);
+}
+
+/* ---------------------------------------------------------
+   RSVP
+--------------------------------------------------------- */
+
+.rsvp-content h2 {
+  margin: 0 0 12px;
+  color: #4B372F;
+}
+
+.rsvp-intro,
+#rsvpForm label span,
+#rsvpForm input,
+#rsvpForm select,
+#rsvpForm textarea,
+.submit-btn,
+.form-status {
+  font-family: var(--font-dumbadze);
+  font-size: var(--small-size);
+  font-weight: 600;
+}
+
+.rsvp-intro {
+  color: #654F45;
+}
+
+#rsvpForm label span {
+  color: #7E7652;
+}
+
+#rsvpForm input,
+#rsvpForm select,
+#rsvpForm textarea {
+  color: #4B372F;
+}
+
+/* ---------------------------------------------------------
+   COUNTDOWN
+--------------------------------------------------------- */
+
+#countdownSection {
+  color: var(--text-primary);
+}
+
+.countdown-section .section-kicker {
+  margin: 0 0 18px;
+  font-family: var(--font-dumbadze);
+  font-size: clamp(.9rem, 2.3vw, 1.05rem);
+  font-weight: 600;
+  letter-spacing: 0;
+  color: var(--text-primary);
+}
+
+.countdown strong {
+  font-family: var(--font-kupiura);
+  font-size: clamp(1.9rem, 6vw, 3rem);
+  font-weight: 500;
+  color: var(--text-primary);
+}
+
+.countdown span {
+  margin-top: 6px;
+  font-family: var(--font-dumbadze);
+  font-size: var(--small-size);
+  font-weight: 600;
+  letter-spacing: 0;
+  color: var(--text-accent);
+}
+
+.countdown i {
+  background: rgba(199, 195, 155, .55);
+}
+
+.final-message {
+  margin-top: 18px;
+  font-family: var(--font-dumbadze);
+  font-size: clamp(.85rem, 2.3vw, 1.05rem);
+  font-weight: 600;
+  line-height: 1.4;
+  color: var(--text-accent);
+}
+
+/* ---------------------------------------------------------
+   MOBILE
+--------------------------------------------------------- */
+
+@media (max-width: 600px) {
+  .opening-copy {
+    bottom: max(18px, env(safe-area-inset-bottom));
+  }
+
+  .tap-note {
+    font-size: .78rem;
+  }
+
+  .invite-card .card-kicker {
+    font-size: clamp(1.05rem, 5vw, 1.4rem);
+    margin-bottom: 9px;
+  }
+
+  .invite-copy {
+    font-size: .72rem;
+    line-height: 1.55;
+    margin-bottom: 12px;
+  }
+
+  .invite-card time {
+    font-size: 1rem;
+  }
+
+  .arch-bow {
+    top: 1.8%;
+    width: clamp(66px, 22vw, 88px);
+  }
+
+  .couple-names {
+    margin-top: 12%;
+    font-size: clamp(2.35rem, 11vw, 3.5rem);
+  }
+
+  .date-stack {
+    margin-top: 14px;
+    font-size: clamp(1rem, 4.5vw, 1.3rem);
+  }
+
+  .details-title {
+    font-size: clamp(1.55rem, 7vw, 2.15rem);
+  }
+
+  .map-note {
+    font-size: .68rem;
+    margin-bottom: 16px;
+  }
+
+  .timeline-event time {
+    font-size: clamp(1.55rem, 7vw, 2rem);
+  }
+
+  .timeline-event p,
+  .timeline-event .place,
+  .timeline-event a,
+  .timeline-event a small,
+  .dress-content p,
+  .dress-note,
+  .rsvp-intro,
+  #rsvpForm label span,
+  #rsvpForm input,
+  #rsvpForm select,
+  #rsvpForm textarea {
+    font-size: .72rem;
+  }
+
+  .dress-content h2,
+  .rsvp-content h2 {
+    font-size: clamp(1.65rem, 7vw, 2.25rem);
+  }
+
+  .countdown-section .section-kicker {
+    font-size: .84rem;
+  }
+
+  .countdown strong {
+    font-size: clamp(1.55rem, 8vw, 2.2rem);
+  }
+
+  .countdown span {
+    font-size: .65rem;
+  }
+
+  .final-message {
+    font-size: .8rem;
+  }
+}
+.date-stack {
+  margin-top: 20px;
+
+  /* სივრცე 03 / 10 / 2026-ს შორის */
+  gap: 14px;
+}
+
+.date-stack span {
+  font-family: var(--font-kupiura);
+
+  /* ციფრების ზომა */
+  font-size: 2rem;
+
+  font-weight: 500;
+  line-height: 1;
+}
+/* =========================================================
+   NAMES — SIDE BY SIDE
+========================================================= */
+
+.couple-names {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+
+  gap: 16px;
+
+  width: 100%;
+  margin: 0;
+
+  font-family: var(--font-kupiura);
+  font-size: clamp(2.2rem, 7vw, 3.8rem);
+  font-weight: 500;
+  line-height: 1;
+
+  white-space: nowrap;
+
+  transform: translateY(-35px);
+}
+
+.couple-names span {
+  display: inline-block;
+}
+
+.couple-names em {
+  display: inline-block;
+  margin: 0;
+
+  font-family: var(--font-kupiura);
+  font-size: .65em;
+  font-style: normal;
+
+  color: var(--text-accent);
+}
+
+
+/* =========================================================
+   DATE — BIGGER + MORE SPACE
+========================================================= */
+
+.date-stack {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  /* დიდი სივრცე თითოეულ რიცხვს შორის */
+  gap: 25px;
+
+  margin-top: 10px;
+
+  transform: translateY(-20px);
+}
+
+.date-stack span {
+  display: block;
+
+  font-family: var(--font-kupiura);
+
+  /* დიდი ციფრები */
+  font-size: clamp(2.4rem, 8vw, 4rem);
+
+  font-weight: 500;
+  line-height: .9;
+
+  letter-spacing: .06em;
+}
+
+
+/* წერტილები / გამყოფები */
+
+.date-stack i {
+  width: 5px;
+  height: 5px;
+
+  margin: 1px 0;
+
+  border-radius: 50%;
+
+  background: var(--text-accent);
+}
+
+
+/* =========================================================
+   MOBILE
+========================================================= */
+
+@media (max-width: 600px) {
+
+  .couple-names {
+    gap: 10px;
+
+    font-size: clamp(
+      1.9rem,
+      9vw,
+      2.8rem
+    );
+
+    transform: translateY(-30px);
+  }
+
+  .couple-names em {
+    font-size: .55em;
+  }
+
+  .date-stack {
+    /* ტელეფონზეც დიდი დაშორება */
+    gap: 22px;
+
+    margin-top: 8px;
+
+    transform: translateY(-18px);
+  }
+
+  .date-stack span {
+    font-size: clamp(
+      2.5rem,
+      12vw,
+      3.6rem
+    );
+
+    line-height: .85;
+  }
+}
+
+/* =========================================================
+   FINAL ENVELOPE + ARCH COMPOSITION
+   KEEP THIS BLOCK AT THE VERY END OF style.css
+========================================================= */
+
+/* ---------------------------------------------------------
+   ENVELOPE INVITATION
+--------------------------------------------------------- */
+
+.invite-card .card-kicker {
+  margin: 0 0 10px;
+  font-family: var(--font-dumbadze);
+  font-size: clamp(.95rem, 2.8vw, 1.35rem);
+  font-weight: 600;
+  line-height: 1.25;
+  letter-spacing: 0;
+  color: #4B372F;
+}
+
+.invite-names {
+  margin: 0 0 12px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0;
+
+  font-family: var(--font-kupiura);
+  font-size: clamp(1.8rem, 5vw, 3.15rem);
+  font-weight: 500;
+  line-height: .95;
+  color: #4B372F;
+}
+
+.invite-names span,
+.invite-names i {
+  display: block;
+  font-family: var(--font-kupiura);
+}
+
+.invite-names i {
+  margin: .18rem 0;
+  font-size: .5em;
+  font-style: normal;
+  color: #8C8967;
+}
+
+.invite-card time {
+  font-family: var(--font-kupiura);
+  font-size: clamp(.95rem, 2.5vw, 1.25rem);
+  font-weight: 500;
+  letter-spacing: .04em;
+  color: #4B372F;
+}
+
+
+/* ---------------------------------------------------------
+   ARCH INVITATION — NARROWER + CLEANER
+--------------------------------------------------------- */
+
+.arch-section {
+  width: min(64vw, 360px);
+  margin: 0 auto 14px;
+}
+
+.arch-asset {
+  width: 100%;
+}
+
+.arch-content {
+  padding: 16% 12% 13%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+
+.arch-bow {
+  position: absolute;
+  top: 2%;
+  left: 50%;
+  z-index: 3;
+
+  width: clamp(60px, 14vw, 82px);
+  margin: 0;
+
+  transform: translateX(-50%);
+}
+
+.arch-invite-title {
+  margin: 24px 0 16px;
+
+  font-family: var(--font-dumbadze);
+  font-size: clamp(1.2rem, 3.4vw, 1.65rem);
+  font-weight: 600;
+  line-height: 1.2;
+
+  color: #F4ECE1;
+}
+
+.arch-invite-text {
+  margin: 0;
+
+  font-family: var(--font-dumbadze);
+  font-size: clamp(.72rem, 1.8vw, .9rem);
+  font-weight: 600;
+  line-height: 1.72;
+
+  color: #F4ECE1;
+}
+
+.arch-date {
+  margin-top: 22px;
+
+  font-family: var(--font-kupiura);
+  font-size: clamp(1.35rem, 3.6vw, 1.85rem);
+  font-weight: 500;
+  line-height: 1;
+
+  letter-spacing: .05em;
+
+  color: #C7C39B;
+}
+
+
+/* Old arch layout is no longer used */
+.couple-names,
+.date-stack,
+.small-script {
+  display: none;
+}
+
+
+/* ---------------------------------------------------------
+   MOBILE
+--------------------------------------------------------- */
+
+@media (max-width: 600px) {
+
+  .invite-card .card-kicker {
+    margin-bottom: 8px;
+    font-size: .9rem;
+  }
+
+  .invite-names {
+    margin-bottom: 10px;
+    font-size: clamp(1.45rem, 7vw, 2rem);
+  }
+
+  .invite-card time {
+    font-size: .88rem;
+  }
+
+  .arch-section {
+    width: 72vw;
+    max-width: 320px;
+  }
+
+  .arch-content {
+    padding: 17% 10% 14%;
+  }
+
+  .arch-bow {
+    top: 1.8%;
+    width: clamp(58px, 18vw, 76px);
+  }
+
+  .arch-invite-title {
+    margin: 21px 0 13px;
+    font-size: 1.18rem;
+    
+  }
+
+  .arch-invite-text {
+    font-size: .72rem;
+    line-height: 1.65;
+  }
+
+  .arch-date {
+    margin-top: 18px;
+    font-size: 1.4rem;
+  }
+}
+
+@media (max-width: 380px) {
+  .arch-section {
+    width: 74vw;
+    max-width: 290px;
+  }
+
+  .arch-invite-title {
+    font-size: 1.08rem;
+  }
+
+  .arch-invite-text {
+    font-size: .68rem;
+  }
+
+  .arch-date {
+    font-size: 1.28rem;
+  }
+}
+
+/* =========================================================
+   FINAL — INVITATION CARD + POLAROIDS + VERTICAL DATE
+   Keep this block at the VERY END of style.css
+========================================================= */
+
+/* Slightly larger invitation card */
+.arch-section {
+  width: min(74vw, 430px);
+  margin: 0 auto 26px;
+}
+
+.arch-content {
+  padding: 17% 12% 14%;
+  justify-content: center;
+}
+
+.arch-bow {
+  top: 2.2%;
+  width: clamp(64px, 14vw, 90px);
+}
+
+/* Strong first line */
+.arch-invite-title {
+  margin: clamp(30px, 6vw, 46px) 0 12px;
+  max-width: 90%;
+  font-family: var(--font-dumbadze);
+  font-size: clamp(1.8rem, 4.8vw, 2.65rem);
+  font-weight: 600;
+  line-height: 1.05;
+  letter-spacing: -.02em;
+  color: #F4ECE1;
+}
+
+/* Smaller supporting copy */
+.arch-invite-text {
+  max-width: 310px;
+  margin: 0 auto;
+  font-family: var(--font-dumbadze);
+  font-size: clamp(.72rem, 1.65vw, .9rem);
+  font-weight: 400;
+  line-height: 1.72;
+  letter-spacing: .005em;
+  color: rgba(244,236,225,.88);
+}
+
+/* 03 / 10 / 2026 — vertical */
+.arch-date {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  margin-top: clamp(22px, 4.5vw, 34px);
+  font-family: var(--font-kupiura);
+  font-size: clamp(1.45rem, 3.7vw, 2rem);
+  font-weight: 500;
+  line-height: 1;
+  letter-spacing: .04em;
+  color: #C7C39B;
+}
+
+.arch-date span {
+  display: block;
+}
+
+.arch-date i {
+  display: block;
+  width: 1px;
+  height: clamp(14px, 2.6vw, 20px);
+  background: rgba(199,195,155,.78);
+}
+
+/* Exactly two polaroids between invitation and wedding program */
+.gallery-section {
+  width: min(84vw, 520px);
+  margin: 0 auto 28px;
+}
+
+.gallery-inner {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  align-items: center;
+  gap: clamp(12px, 3vw, 22px);
+  padding: 8px 3%;
+}
+
+.gallery-inner .polaroid:first-child {
+  transform: rotate(-2.2deg) translateY(3px);
+}
+
+.gallery-inner .polaroid:nth-child(2) {
+  transform: rotate(2deg) translateY(-3px);
+}
+
+.polaroid {
+  padding: clamp(7px, 1.5vw, 10px) clamp(7px, 1.5vw, 10px) clamp(19px, 4vw, 28px);
+  background: #F8F3EA;
+  box-shadow: 0 13px 28px rgba(59,40,32,.11);
+}
+
+/* Program comes after the two photos */
+.details-section {
+  margin-top: 4px;
+}
+
+@media (max-width: 600px) {
+  .arch-section {
+    width: min(90vw, 390px);
+    margin-bottom: 22px;
+  }
+
+  .arch-content {
+    padding: 17% 11% 14%;
+  }
+
+  .arch-bow {
+    width: clamp(62px, 19vw, 80px);
+  }
+
+  .arch-invite-title {
+    margin-top: 34px;
+    margin-bottom: 10px;
+    font-size: clamp(1.7rem, 8vw, 2.25rem);
+  }
+
+  .arch-invite-text {
+    max-width: 255px;
+    font-size: clamp(.68rem, 3vw, .8rem);
+    line-height: 1.65;
+  }
+
+  .arch-date {
+    gap: 7px;
+    margin-top: 20px;
+    font-size: clamp(1.38rem, 6.4vw, 1.72rem);
+  }
+
+  .arch-date i {
+    height: 15px;
+  }
+
+  .gallery-section {
+    width: 88vw;
+    margin-bottom: 24px;
+  }
+
+  .gallery-inner {
+    gap: 10px;
+    padding-inline: 2%;
+  }
+}
+
+@media (max-width: 380px) {
+  .arch-section {
+    width: 92vw;
+  }
+
+  .arch-invite-title {
+    font-size: 1.62rem;
+  }
+
+  .arch-invite-text {
+    font-size: .66rem;
+  }
+
+  .arch-date {
+    font-size: 1.34rem;
+  }
+}
