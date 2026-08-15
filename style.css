@@ -1040,7 +1040,7 @@ textarea { resize: vertical; min-height: 54px; }
   align-items: center;
   justify-content: center;
 
-  background-image: url("assets/count.png");
+  background-image: url("assets/dress-card.png");
   background-repeat: no-repeat;
   background-position: center;
   background-size: 100% 100%;
@@ -2774,3 +2774,504 @@ h6,
   }
 
 }
+/* =========================================
+   WEDDING DETAILS — SIDE TIMELINE
+========================================= */
+
+.timeline-event {
+  width: 100%;
+  display: grid;
+
+  grid-template-columns:
+    minmax(72px, .85fr)
+    24px
+    minmax(0, 1.65fr);
+
+  align-items: center;
+
+  text-align: left;
+
+  padding: 18px 0;
+}
+
+
+/* დრო მარცხნივ */
+
+.timeline-event time {
+  margin: 0;
+
+  font-family: var(--font-kupiura);
+  font-size: clamp(1.6rem, 4vw, 2.15rem);
+  font-weight: 500;
+
+  line-height: 1;
+
+  color: #F5EEE5;
+
+  text-align: right;
+
+  padding-right: 14px;
+}
+
+
+/* შუაში ხაზი */
+
+.timeline-marker {
+  position: relative;
+
+  align-self: stretch;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.timeline-marker::before {
+  content: "";
+
+  position: absolute;
+  top: 0;
+  bottom: 0;
+
+  width: 1px;
+
+  background: rgba(199, 195, 155, .5);
+}
+
+
+/* პატარა წერტილი */
+
+.timeline-marker span {
+  position: relative;
+  z-index: 2;
+
+  width: 6px;
+  height: 6px;
+
+  border-radius: 50%;
+
+  background: #C7C39B;
+}
+
+
+/* ტექსტის მხარე */
+
+.timeline-info {
+  min-width: 0;
+
+  padding-left: 14px;
+}
+
+
+/* ღონისძიების სახელი */
+
+.timeline-info p {
+  margin: 0 0 5px;
+
+  font-family: var(--font-dumbadze);
+  font-size: clamp(.84rem, 2vw, 1rem);
+  font-weight: 600;
+
+  line-height: 1.35;
+
+  color: #F5EEE5;
+}
+
+
+/* ლოკაცია */
+
+.timeline-info .place,
+.timeline-info a {
+  display: flex;
+  flex-direction: column;
+
+  font-family: var(--font-dumbadze);
+  font-size: clamp(.68rem, 1.6vw, .82rem);
+  font-weight: 400;
+
+  line-height: 1.45;
+
+  color: #C7C39B;
+
+  text-decoration: none;
+}
+
+
+.timeline-info a small {
+  margin-top: 3px;
+
+  font-size: .88em;
+
+  color: rgba(199, 195, 155, .72);
+}
+
+
+/* =========================================
+   PHONE
+========================================= */
+
+@media (max-width: 600px) {
+
+  .timeline-event {
+    grid-template-columns: 82px 20px minmax(0, 1fr);
+
+    padding: 16px 0;
+  }
+
+  .timeline-event time {
+    font-size: 1.55rem;
+    padding-right: 10px;
+  }
+
+  .timeline-info {
+    padding-left: 10px;
+  }
+
+  .timeline-info p {
+    font-size: .82rem;
+  }
+
+  .timeline-info .place,
+  .timeline-info a {
+    font-size: .69rem;
+  }
+
+}
+
+/* =========================================================
+   FINAL COMPOSITION + COLOR SYSTEM
+   DETAILS = light card / dark espresso + dark olive
+   RSVP    = dark brown card / ivory + muted olive
+   COUNTDOWN = light card / brown typography
+   KEEP THIS BLOCK AT THE VERY END
+========================================================= */
+
+/* =========================================================
+   DETAILS — LIGHT CARD
+========================================================= */
+
+.details-content {
+  color: #432B25 !important;
+}
+
+.details-title {
+  margin: 0 0 8px !important;
+  color: #432B25 !important;
+  font-family: var(--font-dumbadze) !important;
+  font-size: clamp(1.7rem, 4.8vw, 2.55rem) !important;
+  font-weight: 600 !important;
+  line-height: 1.08 !important;
+  white-space: nowrap;
+}
+
+.map-note {
+  margin: 0 0 20px !important;
+  color: #66683F !important;
+  font-family: var(--font-dumbadze) !important;
+  font-size: clamp(.66rem, 1.5vw, .78rem) !important;
+  font-weight: 500 !important;
+  line-height: 1.45 !important;
+  opacity: .92;
+}
+
+/* Side timeline */
+
+.timeline-event {
+  width: 100%;
+  display: grid !important;
+  grid-template-columns:
+    minmax(72px, .82fr)
+    22px
+    minmax(0, 1.7fr) !important;
+  align-items: center !important;
+  padding: 17px 0 !important;
+  text-align: left !important;
+}
+
+.timeline-event time {
+  margin: 0 !important;
+  padding-right: 12px !important;
+  color: #432B25 !important;
+  font-family: var(--font-kupiura) !important;
+  font-size: clamp(1.45rem, 3.8vw, 1.95rem) !important;
+  font-weight: 500 !important;
+  font-style: normal !important;
+  line-height: 1 !important;
+  text-align: right !important;
+}
+
+.timeline-marker {
+  position: relative;
+  align-self: stretch;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.timeline-marker::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 1px;
+  background: rgba(102, 104, 63, .34);
+}
+
+.timeline-marker span {
+  position: relative;
+  z-index: 2;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: #66683F;
+}
+
+.timeline-info {
+  min-width: 0;
+  padding-left: 13px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start !important;
+  text-align: left !important;
+}
+
+.timeline-info p {
+  width: 100%;
+  margin: 0 0 5px !important;
+  color: #432B25 !important;
+  font-family: var(--font-dumbadze) !important;
+  font-size: clamp(.8rem, 1.9vw, .96rem) !important;
+  font-weight: 600 !important;
+  line-height: 1.35 !important;
+  text-align: left !important;
+}
+
+.timeline-info .place,
+.timeline-info a {
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  display: flex !important;
+  flex-direction: column;
+  align-items: flex-start !important;
+  color: #66683F !important;
+  font-family: var(--font-dumbadze) !important;
+  font-size: clamp(.67rem, 1.55vw, .79rem) !important;
+  font-weight: 500 !important;
+  line-height: 1.45 !important;
+  text-align: left !important;
+  text-decoration: none;
+}
+
+.timeline-info a small {
+  width: 100%;
+  margin-top: 2px;
+  color: rgba(67, 43, 37, .68) !important;
+  font-size: .9em !important;
+  font-weight: 500 !important;
+  text-align: left !important;
+}
+
+/* Old separators are no longer used with the new marker timeline */
+.timeline-line {
+  display: none !important;
+}
+
+
+/* =========================================================
+   RSVP — DARK BROWN CARD
+========================================================= */
+
+.rsvp-content {
+  color: #F5EEE5 !important;
+}
+
+.rsvp-content h2 {
+  color: #F5EEE5 !important;
+}
+
+.rsvp-intro {
+  color: rgba(245, 238, 229, .88) !important;
+}
+
+#rsvpForm label span {
+  color: #C7C39B !important;
+}
+
+#rsvpForm input,
+#rsvpForm select,
+#rsvpForm textarea {
+  color: #F5EEE5 !important;
+  border-bottom-color: rgba(245, 238, 229, .34) !important;
+  background: transparent !important;
+}
+
+#rsvpForm input::placeholder,
+#rsvpForm textarea::placeholder {
+  color: rgba(245, 238, 229, .52) !important;
+}
+
+#rsvpForm select option {
+  color: #432B25;
+  background: #F5EEE5;
+}
+
+.submit-btn {
+  color: #F5EEE5 !important;
+  border-color: rgba(245, 238, 229, .72) !important;
+  background: transparent !important;
+}
+
+.submit-btn:hover {
+  color: #432B25 !important;
+  background: #F5EEE5 !important;
+}
+
+.form-status {
+  color: rgba(245, 238, 229, .78) !important;
+}
+
+
+/* =========================================================
+   COUNTDOWN — LIGHT CARD / BROWN TYPOGRAPHY
+========================================================= */
+
+#countdownSection,
+#countdownSection .countdown-inner {
+  color: #432B25 !important;
+}
+
+.countdown-section .section-kicker {
+  color: #66683F !important;
+}
+
+.countdown strong {
+  color: #432B25 !important;
+}
+
+.countdown span {
+  color: #432B25 !important;
+  opacity: .8;
+}
+
+.countdown i {
+  background: rgba(67, 43, 37, .28) !important;
+}
+
+.final-message {
+  color: #432B25 !important;
+  font-weight: 600 !important;
+  opacity: 1 !important;
+}
+
+
+/* =========================================================
+   DRESS CODE — LIGHT CARD / STRONGER TEXT
+========================================================= */
+
+.dress-content h2 {
+  color: #432B25 !important;
+}
+
+.dress-content > p,
+.dress-content .dress-note {
+  color: #432B25 !important;
+  font-weight: 500 !important;
+  opacity: 1 !important;
+}
+
+
+/* =========================================================
+   MOBILE — FINAL DETAILS ALIGNMENT
+========================================================= */
+
+@media (max-width: 600px) {
+
+  .details-content {
+    padding: 11% 9% 9% !important;
+  }
+
+  .details-title {
+    font-size: 1.58rem !important;
+    line-height: 1.05 !important;
+    white-space: nowrap;
+  }
+
+  .map-note {
+    margin-bottom: 17px !important;
+    font-size: .66rem !important;
+  }
+
+  .timeline-event {
+    grid-template-columns:
+      74px
+      18px
+      minmax(0, 1fr) !important;
+    padding: 14px 0 !important;
+  }
+
+  .timeline-event time {
+    padding-right: 8px !important;
+    font-size: 1.35rem !important;
+  }
+
+  .timeline-info {
+    padding-left: 9px !important;
+  }
+
+  .timeline-info p {
+    font-size: .78rem !important;
+  }
+
+  .timeline-info .place,
+  .timeline-info a {
+    font-size: .67rem !important;
+  }
+
+  .timeline-info a small {
+    font-size: .88em !important;
+  }
+
+  .rsvp-content h2 {
+    color: #F5EEE5 !important;
+  }
+
+  .rsvp-intro {
+    color: rgba(245, 238, 229, .88) !important;
+  }
+
+  .countdown-section .section-kicker,
+  .countdown strong,
+  .countdown span,
+  .final-message {
+    color: #432B25 !important;
+  }
+}
+
+@media (max-width: 380px) {
+
+  .details-title {
+    font-size: 1.45rem !important;
+  }
+
+  .timeline-event {
+    grid-template-columns:
+      68px
+      16px
+      minmax(0, 1fr) !important;
+  }
+
+  .timeline-event time {
+    font-size: 1.25rem !important;
+  }
+
+  .timeline-info p {
+    font-size: .74rem !important;
+  }
+
+  .timeline-info .place,
+  .timeline-info a {
+    font-size: .64rem !important;
+  }
+}
+

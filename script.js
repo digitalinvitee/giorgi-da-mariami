@@ -161,13 +161,12 @@
           ease: "sine.out"
         });
     }
-
-   if (ring) {
+if (ring) {
   tl.to(
     ring,
     {
       opacity: 1,
-      y: 22,  // ბეჭედი უფრო დაბლა გაჩერდება
+      y: 5,
       scale: 1,
       duration: .48,
       ease: "back.out(1.45)"
