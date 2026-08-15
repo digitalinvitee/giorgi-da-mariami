@@ -1641,3 +1641,56 @@ h1, h2, h3, h4, h5, h6, .details-title, .dress-content h2, .rsvp-content h2 {
     margin-bottom: 7px !important;
   }
 }
+@media (max-width: 600px) {
+  .arch-section {
+    width: min(98vw, 540px) !important;
+  }
+
+  .arch-content {
+    padding: 14% 9% 10% !important;
+  }
+
+  .small-script {
+    font-size: .72rem !important;
+    line-height: 1.4 !important;
+  }
+
+  .couple-names {
+    font-size: clamp(2rem, 9vw, 3rem) !important;
+    transform: translateY(-25px) !important;
+  }
+
+  .date-stack span {
+    font-size: 1.65rem !important;
+  }
+}
+@media (max-width: 600px) {
+
+  /* RSVP deadline — ერთი ხაზი */
+  .rsvp-intro {
+    white-space: nowrap !important;
+    font-size: .62rem !important;
+  }
+
+  /* Dress code note — ერთი ხაზი */
+  .dress-note {
+    white-space: nowrap !important;
+    font-size: .62rem !important;
+  }
+
+  /* ჩაცმის სტილი — bold + dark olive */
+  .dress-content h2 {
+    font-weight: 700 !important;
+    color: #4F5130 !important;
+  }
+}
+@media (max-width: 600px) {
+  .dress-note {
+    white-space: nowrap !important;
+    font-size: .62rem !important;
+    font-weight: 700 !important;
+  }
+}
+.invite-card .card-kicker {
+  color: #4F5130 !important;
+}
