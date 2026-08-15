@@ -39,7 +39,6 @@
 
   gsap.ticker.lagSmoothing(500, 33);
 
-
   /* =========================================================
      ENVELOPE + MUSIC
   ========================================================= */
@@ -59,11 +58,9 @@
   let idleTween = null;
   let musicStarted = false;
 
-
   function unlockPage() {
     document.body.classList.remove("invitation-locked");
   }
-
 
   function syncMusicUI() {
     if (!musicToggle || !weddingMusic) return;
@@ -79,12 +76,9 @@
 
     musicToggle.setAttribute(
       "aria-label",
-      isPlaying
-        ? "მუსიკის გამორთვა"
-        : "მუსიკის ჩართვა"
+      isPlaying ? "მუსიკის გამორთვა" : "მუსიკის ჩართვა"
     );
   }
-
 
   async function startWeddingMusic() {
     if (!weddingMusic || musicStarted) return;
@@ -97,7 +91,6 @@
       musicStarted = true;
 
       syncMusicUI();
-
     } catch (error) {
       console.log(
         "Music playback was blocked:",
@@ -108,7 +101,6 @@
     }
   }
 
-
   /* =========================================================
      MUSIC PLAY / PAUSE
   ========================================================= */
@@ -116,43 +108,31 @@
   musicToggle?.addEventListener(
     "click",
     async event => {
-
       event.preventDefault();
       event.stopPropagation();
 
       if (!weddingMusic) return;
 
-
       if (weddingMusic.paused) {
-
         try {
-
           await weddingMusic.play();
 
           musicStarted = true;
 
           syncMusicUI();
-
         } catch (error) {
-
           console.log(
             "Music playback failed:",
             error
           );
-
         }
-
       } else {
-
         weddingMusic.pause();
 
         syncMusicUI();
-
       }
-
     }
   );
-
 
   weddingMusic?.addEventListener(
     "play",
@@ -169,13 +149,11 @@
     syncMusicUI
   );
 
-
   /* =========================================================
      ENVELOPE IDLE
   ========================================================= */
 
   if (shell && !reduceMotion.matches) {
-
     idleTween = gsap.to(
       shell,
       {
@@ -186,34 +164,23 @@
         ease: "sine.inOut"
       }
     );
-
   }
-
 
   /* =========================================================
      OPEN ENVELOPE
   ========================================================= */
 
   function openEnvelope() {
-
     if (isOpen || !btn) return;
 
     isOpen = true;
-
     btn.disabled = true;
 
     idleTween?.kill();
 
-
-    /* START MUSIC FROM USER CLICK */
-
     startWeddingMusic();
 
-
-    /* CARD INITIAL STATE */
-
     if (card) {
-
       gsap.set(
         card,
         {
@@ -223,14 +190,9 @@
           zIndex: 4
         }
       );
-
     }
 
-
-    /* RING INITIAL STATE */
-
     if (ring) {
-
       gsap.set(
         ring,
         {
@@ -239,14 +201,9 @@
           scale: .82
         }
       );
-
     }
 
-
-    /* VINYL INITIAL STATE */
-
     if (musicToggle) {
-
       gsap.set(
         musicToggle,
         {
@@ -255,27 +212,14 @@
           scale: .72
         }
       );
-
     }
-
-
-    /* =====================================================
-       MAIN OPENING TIMELINE
-    ===================================================== */
 
     const tl = gsap.timeline({
       onComplete: unlockPage
     });
 
-
-    /* -------------------------------------------------------
-       WAX SEAL
-    ------------------------------------------------------- */
-
     if (seal) {
-
       tl
-
         .to(
           seal,
           {
@@ -284,7 +228,6 @@
             ease: "power2.out"
           }
         )
-
         .to(
           seal,
           {
@@ -293,7 +236,6 @@
             ease: "back.out(2)"
           }
         )
-
         .to(
           seal,
           {
@@ -303,18 +245,10 @@
             ease: "power2.in"
           }
         );
-
     }
 
-
-    /* -------------------------------------------------------
-       FLAP
-    ------------------------------------------------------- */
-
     if (flap) {
-
       tl
-
         .to(
           flap,
           {
@@ -324,14 +258,12 @@
           },
           "-=.03"
         )
-
         .set(
           flap,
           {
             zIndex: 2
           }
         )
-
         .to(
           flap,
           {
@@ -340,18 +272,10 @@
             ease: "power2.out"
           }
         );
-
     }
 
-
-    /* -------------------------------------------------------
-       CARD
-    ------------------------------------------------------- */
-
     if (card) {
-
       tl
-
         .set(
           card,
           {
@@ -360,7 +284,6 @@
             yPercent: 26
           }
         )
-
         .to(
           card,
           {
@@ -369,7 +292,6 @@
             ease: "power3.out"
           }
         )
-
         .to(
           card,
           {
@@ -378,16 +300,9 @@
             ease: "sine.out"
           }
         );
-
     }
 
-
-    /* -------------------------------------------------------
-       RING
-    ------------------------------------------------------- */
-
     if (ring) {
-
       tl.to(
         ring,
         {
@@ -399,25 +314,16 @@
         },
         "-=.22"
       );
-
     }
 
-
-    /* -------------------------------------------------------
-       VINYL
-    ------------------------------------------------------- */
-
     if (musicToggle) {
-
       tl
-
         .set(
           musicToggle,
           {
             visibility: "visible"
           }
         )
-
         .to(
           musicToggle,
           {
@@ -428,16 +334,9 @@
           },
           "-=.20"
         );
-
     }
 
-
-    /* -------------------------------------------------------
-       SCROLL
-    ------------------------------------------------------- */
-
     if (hint) {
-
       tl.to(
         hint,
         {
@@ -447,13 +346,7 @@
         },
         "-=.10"
       );
-
     }
-
-
-    /* -------------------------------------------------------
-       REMOVE OPENING TEXT
-    ------------------------------------------------------- */
 
     gsap.to(
       ".opening-copy",
@@ -464,9 +357,7 @@
         overwrite: true
       }
     );
-
   }
-
 
   btn?.addEventListener(
     "click",
@@ -476,26 +367,20 @@
     }
   );
 
-
   /* =========================================================
      FAILSAFE UNLOCK
   ========================================================= */
 
   window.setTimeout(
     () => {
-
       if (!isOpen) {
-
         document.body.classList.remove(
           "invitation-locked"
         );
-
       }
-
     },
     5000
   );
-
 
   /* =========================================================
      LIGHTWEIGHT SECTION REVEALS
@@ -508,20 +393,15 @@
     "IntersectionObserver" in window &&
     !reduceMotion.matches
   ) {
-
     document.documentElement.classList.add(
       "js-reveal-ready"
     );
 
-
     const revealObserver =
       new IntersectionObserver(
-
         entries => {
-
           entries.forEach(
             entry => {
-
               if (!entry.isIntersecting) return;
 
               entry.target.classList.add(
@@ -531,32 +411,23 @@
               revealObserver.unobserve(
                 entry.target
               );
-
             }
           );
-
         },
-
         {
           rootMargin: "0px 0px -8% 0px",
           threshold: .04
         }
-
       );
-
 
     revealEls.forEach(
       el => revealObserver.observe(el)
     );
-
   } else {
-
     revealEls.forEach(
       el => el.classList.add("is-visible")
     );
-
   }
-
 
   /* =========================================================
      GALLERY FALLBACK
@@ -569,22 +440,17 @@
       ? $$("img", gallery)
       : [];
 
-
   if (
     gallery &&
     galleryImages.length
   ) {
-
     let failed = 0;
-
 
     galleryImages.forEach(
       img => {
-
         img.addEventListener(
           "error",
           () => {
-
             failed += 1;
 
             img
@@ -594,30 +460,23 @@
                 ""
               );
 
-
             if (
               failed ===
               galleryImages.length
             ) {
-
               gallery.setAttribute(
                 "hidden",
                 ""
               );
-
             }
-
           },
           {
             once: true
           }
         );
-
       }
     );
-
   }
-
 
   /* =========================================================
      CINEMATIC WORLD
@@ -634,9 +493,7 @@
   let sceneVisible = false;
   let pageVisible = !document.hidden;
 
-
   if (scene && stage) {
-
     const walkWorld =
       $("#walkWorld");
 
@@ -670,9 +527,7 @@
     const tubaPlayer =
       $("#tubaPlayer");
 
-
     const LOOP = 26;
-
 
     sceneTimeline =
       gsap.timeline(
@@ -685,41 +540,25 @@
         }
       );
 
-
-    /* =====================================================
-       INITIAL POSITIONS
-    ===================================================== */
-
     if (walkWorld) {
-
       gsap.set(
         walkWorld,
         {
           x: "8vw"
         }
       );
-
     }
 
-
     if (waiterRig) {
-
       gsap.set(
         waiterRig,
         {
           x: "-38vw"
         }
       );
-
     }
 
-
-    /* =====================================================
-       CHARACTER SIZE
-    ===================================================== */
-
     if (dancingWoman) {
-
       gsap.set(
         dancingWoman,
         {
@@ -727,12 +566,9 @@
           transformOrigin: "50% 100%"
         }
       );
-
     }
 
-
     if (dancingMan) {
-
       gsap.set(
         dancingMan,
         {
@@ -740,12 +576,9 @@
           transformOrigin: "50% 100%"
         }
       );
-
     }
 
-
     if (dancingCouple) {
-
       gsap.set(
         dancingCouple,
         {
@@ -753,12 +586,9 @@
           transformOrigin: "50% 100%"
         }
       );
-
     }
 
-
     if (champagneWoman) {
-
       gsap.set(
         champagneWoman,
         {
@@ -766,12 +596,9 @@
           transformOrigin: "50% 100%"
         }
       );
-
     }
 
-
     if (tubaPlayer) {
-
       gsap.set(
         tubaPlayer,
         {
@@ -779,16 +606,9 @@
           transformOrigin: "50% 100%"
         }
       );
-
     }
 
-
-    /* =====================================================
-       CUPID INITIAL POSITION
-    ===================================================== */
-
     if (cupid) {
-
       gsap.set(
         cupid,
         {
@@ -802,23 +622,15 @@
           opacity: 0
         }
       );
-
     }
 
-
-    /* =====================================================
-       CURTAIN OPEN
-    ===================================================== */
-
     if (curtain) {
-
       gsap.set(
         curtain,
         {
           opacity: 1
         }
       );
-
 
       sceneTimeline.to(
         curtain,
@@ -829,67 +641,37 @@
         },
         0
       );
-
     }
 
-
-    /* =====================================================
-       WORLD MOVEMENT
-    ===================================================== */
-
     if (walkWorld) {
-
       sceneTimeline.fromTo(
-
         walkWorld,
-
         {
           x: "8vw"
         },
-
         {
           x: "-205vw",
           duration: LOOP - .65,
           ease: "none"
         },
-
         0
-
       );
-
     }
 
-
-    /* =====================================================
-       WAITER TRAVEL
-    ===================================================== */
-
     if (waiterRig) {
-
       sceneTimeline.fromTo(
-
         waiterRig,
-
         {
           x: "-38vw"
         },
-
         {
           x: "112vw",
           duration: LOOP - 1.5,
           ease: "none"
         },
-
         .3
-
       );
-
     }
-
-
-    /* =====================================================
-       BACKGROUND DANCE
-    ===================================================== */
 
     backgroundDance =
       gsap.timeline(
@@ -900,9 +682,7 @@
         }
       );
 
-
     if (dancingWoman) {
-
       backgroundDance.to(
         dancingWoman,
         {
@@ -916,12 +696,9 @@
         },
         0
       );
-
     }
 
-
     if (dancingMan) {
-
       backgroundDance.to(
         dancingMan,
         {
@@ -935,12 +712,9 @@
         },
         0
       );
-
     }
 
-
     if (dancingCouple) {
-
       backgroundDance.to(
         dancingCouple,
         {
@@ -954,12 +728,9 @@
         },
         0
       );
-
     }
 
-
     if (champagneWoman) {
-
       backgroundDance.to(
         champagneWoman,
         {
@@ -973,22 +744,12 @@
         },
         0
       );
-
     }
 
-
-    /* =====================================================
-       CUPID
-    ===================================================== */
-
     if (cupid) {
-
       sceneTimeline
-
         .fromTo(
-
           cupid,
-
           {
             right: "-22vw",
             y: -75,
@@ -996,7 +757,6 @@
             rotation: -5,
             opacity: 0
           },
-
           {
             right: "9vw",
             y: 30,
@@ -1006,15 +766,10 @@
             duration: 2.7,
             ease: "power1.out"
           },
-
           14.15
-
         )
-
         .to(
-
           cupid,
-
           {
             right: "25vw",
             y: 55,
@@ -1022,15 +777,10 @@
             duration: 1.7,
             ease: "sine.inOut"
           },
-
           16.85
-
         )
-
         .to(
-
           cupid,
-
           {
             right: "108vw",
             y: 5,
@@ -1039,20 +789,11 @@
             duration: 2.3,
             ease: "power1.in"
           },
-
           18.55
-
         );
-
     }
 
-
-    /* =====================================================
-       CLOSE LOOP
-    ===================================================== */
-
     if (curtain) {
-
       sceneTimeline.to(
         curtain,
         {
@@ -1062,16 +803,9 @@
         },
         LOOP - .25
       );
-
     }
 
-
-    /* =====================================================
-       WAITER WALKING
-    ===================================================== */
-
     if (waiter) {
-
       waiterWalk =
         gsap.timeline(
           {
@@ -1083,9 +817,7 @@
           }
         );
 
-
       waiterWalk
-
         .to(
           waiter,
           {
@@ -1095,7 +827,6 @@
             transformOrigin: "50% 100%"
           }
         )
-
         .to(
           waiter,
           {
@@ -1105,7 +836,6 @@
             transformOrigin: "50% 100%"
           }
         )
-
         .to(
           waiter,
           {
@@ -1115,7 +845,6 @@
             transformOrigin: "50% 100%"
           }
         )
-
         .to(
           waiter,
           {
@@ -1125,28 +854,18 @@
             transformOrigin: "50% 100%"
           }
         );
-
     }
 
-
     if (waiterShadow) {
-
       gsap.set(
         waiterShadow,
         {
           transformOrigin: "50% 100%"
         }
       );
-
     }
 
-
-    /* =====================================================
-       TUBA PLAYER
-    ===================================================== */
-
     if (tubaPlayer) {
-
       tubaPlaying =
         gsap.timeline(
           {
@@ -1158,9 +877,7 @@
           }
         );
 
-
       tubaPlaying
-
         .to(
           tubaPlayer,
           {
@@ -1172,7 +889,6 @@
             transformOrigin: "50% 100%"
           }
         )
-
         .to(
           tubaPlayer,
           {
@@ -1184,7 +900,6 @@
             transformOrigin: "50% 100%"
           }
         )
-
         .to(
           tubaPlayer,
           {
@@ -1196,7 +911,6 @@
             transformOrigin: "50% 100%"
           }
         )
-
         .to(
           tubaPlayer,
           {
@@ -1208,78 +922,47 @@
             transformOrigin: "50% 100%"
           }
         );
-
     }
-
-
-    /* =====================================================
-       SCENE PLAY / PAUSE
-    ===================================================== */
 
     const syncScenePlayback =
       () => {
-
         const shouldPlay =
           sceneVisible &&
           pageVisible &&
           !reduceMotion.matches;
-
 
         scene.classList.toggle(
           "is-active",
           shouldPlay
         );
 
-
         if (shouldPlay) {
-
           sceneTimeline?.play();
-
           waiterWalk?.play();
-
           backgroundDance?.play();
-
           tubaPlaying?.play();
-
         } else {
-
           sceneTimeline?.pause();
-
           waiterWalk?.pause();
-
           backgroundDance?.pause();
-
           tubaPlaying?.pause();
-
         }
-
       };
-
-
-    /* =====================================================
-       ONLY RUN SCENE WHEN VISIBLE
-    ===================================================== */
 
     if (
       "IntersectionObserver" in window
     ) {
-
       const observer =
         new IntersectionObserver(
-
           entries => {
-
             sceneVisible =
               entries.some(
                 entry =>
                   entry.isIntersecting
               );
 
-
             syncScenePlayback();
-
           },
-
           {
             rootMargin:
               "10% 0px 10% 0px",
@@ -1287,61 +970,35 @@
             threshold:
               .01
           }
-
         );
-
 
       observer.observe(
         scene
       );
-
     } else {
-
       sceneVisible = true;
 
       syncScenePlayback();
-
     }
 
-
-    /* =====================================================
-       TAB VISIBILITY
-    ===================================================== */
-
     document.addEventListener(
-
       "visibilitychange",
-
       () => {
-
         pageVisible =
           !document.hidden;
 
-
         syncScenePlayback();
-
       }
-
     );
-
 
     reduceMotion.addEventListener?.(
-
       "change",
-
       syncScenePlayback
-
     );
-
-
-    /* =====================================================
-       REDUCED MOTION
-    ===================================================== */
 
     if (
       reduceMotion.matches
     ) {
-
       sceneTimeline.pause(
         14
       );
@@ -1354,34 +1011,25 @@
         0
       );
 
-
       if (curtain) {
-
         gsap.set(
           curtain,
           {
             opacity: 0
           }
         );
-
       }
 
-
       if (cupid) {
-
         gsap.set(
           cupid,
           {
             opacity: 0
           }
         );
-
       }
-
     }
-
   }
-
 
   /* =========================================================
      COUNTDOWN
@@ -1390,21 +1038,17 @@
   const countdown =
     $("#countdown");
 
-
   if (countdown) {
-
     const target =
       new Date(
         countdown.dataset.date
       ).getTime();
-
 
     const pad =
       (
         n,
         len = 2
       ) =>
-
         String(
           Math.max(
             0,
@@ -1415,13 +1059,11 @@
           "0"
         );
 
-
     const daysEl =
       $(
         "[data-days]",
         countdown
       );
-
 
     const hoursEl =
       $(
@@ -1429,13 +1071,11 @@
         countdown
       );
 
-
     const minutesEl =
       $(
         "[data-minutes]",
         countdown
       );
-
 
     const secondsEl =
       $(
@@ -1443,10 +1083,8 @@
         countdown
       );
 
-
     const tick =
       () => {
-
         const distance =
           Math.max(
             0,
@@ -1454,109 +1092,79 @@
             Date.now()
           );
 
-
         const days =
           Math.floor(
             distance /
             86400000
           );
 
-
         const hours =
           Math.floor(
-
             (
               distance %
               86400000
             ) /
-
             3600000
-
           );
-
 
         const minutes =
           Math.floor(
-
             (
               distance %
               3600000
             ) /
-
             60000
-
           );
-
 
         const seconds =
           Math.floor(
-
             (
               distance %
               60000
             ) /
-
             1000
-
           );
 
-
         if (daysEl) {
-
           daysEl.textContent =
             pad(
               days,
               2
             );
-
         }
 
-
         if (hoursEl) {
-
           hoursEl.textContent =
             pad(
               hours
             );
-
         }
 
-
         if (minutesEl) {
-
           minutesEl.textContent =
             pad(
               minutes
             );
-
         }
 
-
         if (secondsEl) {
-
           secondsEl.textContent =
             pad(
               seconds
             );
-
         }
-
       };
 
-
     tick();
-
 
     window.setInterval(
       tick,
       1000
     );
-
   }
 
-
   /* =========================================================
-     RSVP
+     RSVP — GOOGLE SHEETS
   ========================================================= */
 
   const rsvpForm =
@@ -1565,66 +1173,104 @@
   const formStatus =
     $("#formStatus");
 
+  const RSVP_URL =
+    "https://script.google.com/macros/s/AKfycbzLbL768IQ66qOJrnNxFyCx9ra-WJkNEsVG5t30l_Q1WMCvsKWbqgd-3Jd6PDclA6udxg/exec";
 
   rsvpForm?.addEventListener(
-
     "submit",
-
-    event => {
-
+    async event => {
       event.preventDefault();
-
 
       if (
         !rsvpForm.checkValidity()
       ) {
-
         rsvpForm.reportValidity();
-
         return;
-
       }
 
+      const submitButton =
+        $(".submit-btn", rsvpForm);
+
+      const data = {
+        name:
+          rsvpForm.elements.name?.value.trim() || "",
+
+        attendance:
+          rsvpForm.elements.attendance?.value || "",
+
+        message:
+          rsvpForm.elements.message?.value.trim() || ""
+      };
+
+      if (submitButton) {
+        submitButton.disabled = true;
+        submitButton.textContent =
+          "იგზავნება...";
+      }
 
       if (formStatus) {
-
-        formStatus.textContent =
-          "ფორმა მზადაა — გაგზავნისთვის საჭიროა Google Sheets endpoint-ის დაკავშირება.";
-
+        formStatus.textContent = "";
       }
 
+      try {
+        await fetch(
+          RSVP_URL,
+          {
+            method: "POST",
+            mode: "no-cors",
+            headers: {
+              "Content-Type":
+                "text/plain;charset=utf-8"
+            },
+            body: JSON.stringify(data)
+          }
+        );
+
+        if (formStatus) {
+          formStatus.textContent =
+            "თქვენი პასუხი მიღებულია ♥";
+        }
+
+        rsvpForm.reset();
+      } catch (error) {
+        console.error(
+          "RSVP submission failed:",
+          error
+        );
+
+        if (formStatus) {
+          formStatus.textContent =
+            "დაფიქსირდა შეცდომა. გთხოვთ, სცადოთ თავიდან.";
+        }
+      } finally {
+        if (submitButton) {
+          submitButton.disabled = false;
+          submitButton.textContent =
+            "პასუხის გაგზავნა";
+        }
+      }
     }
-
   );
-
 
   /* =========================================================
      LOAD
   ========================================================= */
 
   window.addEventListener(
-
     "load",
-
     () => {
-
       if (
         !document.body.classList.contains(
           "invitation-locked"
         )
       ) {
-
         document.body.style.overflowY =
           "";
-
       }
-
     },
-
     {
       once: true
     }
-
   );
 
 })();

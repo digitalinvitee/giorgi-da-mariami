@@ -1694,3 +1694,16 @@ h1, h2, h3, h4, h5, h6, .details-title, .dress-content h2, .rsvp-content h2 {
 .invite-card .card-kicker {
   color: #4F5130 !important;
 }
+@media (max-width: 600px) {
+  .map-note {
+    font-size: .76rem !important;
+    font-weight: 700 !important;
+  }
+}
+@media (max-width: 600px) {
+  .dress-note {
+    font-size: .72rem !important;
+    font-weight: 700 !important;
+    white-space: nowrap !important;
+  }
+}
