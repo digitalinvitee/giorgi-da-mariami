@@ -1748,27 +1748,70 @@ h1, h2, h3, h4, h5, h6, .details-title, .dress-content h2, .rsvp-content h2 {
     font-size: .82rem !important;
   }
 }
+@media (max-width: 600px) {
+
+  .site-footer {
+    width: 100% !important;
+    padding: 24px 20px 36px !important;
+    text-align: center !important;
+  }
+
+  .site-footer p {
+    width: 100% !important;
+    margin: 0 auto !important;
+    text-align: center !important;
+    font-size: 0.68rem !important;
+    line-height: 1.4 !important;
+    color: rgba(67, 43, 37, 0.65) !important;
+  }
+
+  .site-footer p span {
+    display: block !important;
+    width: 100% !important;
+    margin: 5px auto 0 !important;
+    text-align: center !important;
+    font-size: 0.9rem !important;
+    font-weight: 600 !important;
+    letter-spacing: 0.08em !important;
+    color: #66683F !important;
+  }
+
+}
+/* =========================================================
+   FOOTER
+========================================================= */
+
 .site-footer {
   width: 100%;
-  padding: 28px 20px 34px;
+  padding: 28px 20px 38px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   text-align: center;
 }
 
 .site-footer p {
-  margin: 0;
-  font-family: var(--font-dumbadze);
-  font-size: 0.72rem;
-  font-weight: 500;
-  letter-spacing: 0.04em;
-  color: rgba(67, 43, 37, 0.65);
+  width: 100%;
+  margin: 0 auto !important;
+  text-align: center !important;
+  font-family: var(--font-dumbadze) !important;
+  font-size: 0.72rem !important;
+  font-weight: 500 !important;
+  line-height: 1.4 !important;
+  letter-spacing: 0.03em !important;
+  color: rgba(67, 43, 37, 0.62) !important;
 }
 
-.site-footer span {
-  display: block;
-  margin-top: 5px;
-  font-family: var(--font-kupiura);
-  font-size: 0.9rem;
-  font-weight: 500;
-  letter-spacing: 0.08em;
-  color: #66683F;
+.site-footer p span {
+  display: block !important;
+  width: 100%;
+  margin: 6px auto 0 !important;
+  text-align: center !important;
+  font-family: var(--font-kupiura) !important;
+  font-size: 1rem !important;
+  font-weight: 500 !important;
+  line-height: 1.2 !important;
+  letter-spacing: 0.12em !important;
+  color: #66683F !important;
 }
+
