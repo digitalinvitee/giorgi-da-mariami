@@ -41,7 +41,7 @@
 
 
   /* =========================================================
-     ENVELOPE
+     ENVELOPE + MUSIC
   ========================================================= */
 
   const btn = $("#openInvitation");
@@ -52,8 +52,12 @@
   const ring = $("#inviteRing");
   const hint = $("#openingScroll");
 
+  const musicToggle = $("#musicToggle");
+  const weddingMusic = $("#weddingMusic");
+
   let isOpen = false;
   let idleTween = null;
+  let musicStarted = false;
 
 
   function unlockPage() {
@@ -61,69 +65,256 @@
   }
 
 
-  if (shell && !reduceMotion.matches) {
-    idleTween = gsap.to(shell, {
-      y: -3,
-      duration: 2.8,
-      repeat: -1,
-      yoyo: true,
-      ease: "sine.inOut"
-    });
+  function syncMusicUI() {
+    if (!musicToggle || !weddingMusic) return;
+
+    const isPlaying = !weddingMusic.paused;
+
+    musicToggle.classList.toggle("is-playing", isPlaying);
+
+    musicToggle.setAttribute(
+      "aria-pressed",
+      isPlaying ? "true" : "false"
+    );
+
+    musicToggle.setAttribute(
+      "aria-label",
+      isPlaying
+        ? "მუსიკის გამორთვა"
+        : "მუსიკის ჩართვა"
+    );
   }
 
 
+  async function startWeddingMusic() {
+    if (!weddingMusic || musicStarted) return;
+
+    try {
+      weddingMusic.volume = 0.65;
+
+      await weddingMusic.play();
+
+      musicStarted = true;
+
+      syncMusicUI();
+
+    } catch (error) {
+      console.log(
+        "Music playback was blocked:",
+        error
+      );
+
+      syncMusicUI();
+    }
+  }
+
+
+  /* =========================================================
+     MUSIC PLAY / PAUSE
+  ========================================================= */
+
+  musicToggle?.addEventListener(
+    "click",
+    async event => {
+
+      event.preventDefault();
+      event.stopPropagation();
+
+      if (!weddingMusic) return;
+
+
+      if (weddingMusic.paused) {
+
+        try {
+
+          await weddingMusic.play();
+
+          musicStarted = true;
+
+          syncMusicUI();
+
+        } catch (error) {
+
+          console.log(
+            "Music playback failed:",
+            error
+          );
+
+        }
+
+      } else {
+
+        weddingMusic.pause();
+
+        syncMusicUI();
+
+      }
+
+    }
+  );
+
+
+  weddingMusic?.addEventListener(
+    "play",
+    syncMusicUI
+  );
+
+  weddingMusic?.addEventListener(
+    "pause",
+    syncMusicUI
+  );
+
+  weddingMusic?.addEventListener(
+    "ended",
+    syncMusicUI
+  );
+
+
+  /* =========================================================
+     ENVELOPE IDLE
+  ========================================================= */
+
+  if (shell && !reduceMotion.matches) {
+
+    idleTween = gsap.to(
+      shell,
+      {
+        y: -3,
+        duration: 2.8,
+        repeat: -1,
+        yoyo: true,
+        ease: "sine.inOut"
+      }
+    );
+
+  }
+
+
+  /* =========================================================
+     OPEN ENVELOPE
+  ========================================================= */
+
   function openEnvelope() {
+
     if (isOpen || !btn) return;
 
     isOpen = true;
+
     btn.disabled = true;
+
     idleTween?.kill();
 
+
+    /* START MUSIC FROM USER CLICK */
+
+    startWeddingMusic();
+
+
+    /* CARD INITIAL STATE */
+
     if (card) {
-      gsap.set(card, {
-        visibility: "hidden",
-        opacity: 0,
-        yPercent: 30,
-        zIndex: 4
-      });
+
+      gsap.set(
+        card,
+        {
+          visibility: "hidden",
+          opacity: 0,
+          yPercent: 30,
+          zIndex: 4
+        }
+      );
+
     }
+
+
+    /* RING INITIAL STATE */
 
     if (ring) {
-      gsap.set(ring, {
-        opacity: 0,
-        y: 24,
-        scale: .82
-      });
+
+      gsap.set(
+        ring,
+        {
+          opacity: 0,
+          y: 24,
+          scale: .82
+        }
+      );
+
     }
 
-    
+
+    /* VINYL INITIAL STATE */
+
+    if (musicToggle) {
+
+      gsap.set(
+        musicToggle,
+        {
+          visibility: "hidden",
+          opacity: 0,
+          scale: .72
+        }
+      );
+
+    }
+
+
+    /* =====================================================
+       MAIN OPENING TIMELINE
+    ===================================================== */
 
     const tl = gsap.timeline({
       onComplete: unlockPage
     });
 
+
+    /* -------------------------------------------------------
+       WAX SEAL
+    ------------------------------------------------------- */
+
     if (seal) {
+
       tl
-        .to(seal, {
-          scale: .91,
-          duration: .12,
-          ease: "power2.out"
-        })
-        .to(seal, {
-          scale: 1,
-          duration: .14,
-          ease: "back.out(2)"
-        })
-        .to(seal, {
-          opacity: 0,
-          scale: .78,
-          duration: .24,
-          ease: "power2.in"
-        });
+
+        .to(
+          seal,
+          {
+            scale: .91,
+            duration: .12,
+            ease: "power2.out"
+          }
+        )
+
+        .to(
+          seal,
+          {
+            scale: 1,
+            duration: .14,
+            ease: "back.out(2)"
+          }
+        )
+
+        .to(
+          seal,
+          {
+            opacity: 0,
+            scale: .78,
+            duration: .24,
+            ease: "power2.in"
+          }
+        );
+
     }
 
+
+    /* -------------------------------------------------------
+       FLAP
+    ------------------------------------------------------- */
+
     if (flap) {
+
       tl
+
         .to(
           flap,
           {
@@ -133,50 +324,120 @@
           },
           "-=.03"
         )
-        .set(flap, {
-          zIndex: 2
-        })
-        .to(flap, {
-          rotationX: -180,
-          duration: .56,
-          ease: "power2.out"
-        });
+
+        .set(
+          flap,
+          {
+            zIndex: 2
+          }
+        )
+
+        .to(
+          flap,
+          {
+            rotationX: -180,
+            duration: .56,
+            ease: "power2.out"
+          }
+        );
+
     }
+
+
+    /* -------------------------------------------------------
+       CARD
+    ------------------------------------------------------- */
 
     if (card) {
+
       tl
-        .set(card, {
-          visibility: "visible",
-          opacity: 1,
-          yPercent: 26
-        })
-        .to(card, {
-          yPercent: -55,
-          duration: 1.05,
-          ease: "power3.out"
-        })
-        .to(card, {
-          yPercent: -53,
-          duration: .18,
-          ease: "sine.out"
-        });
+
+        .set(
+          card,
+          {
+            visibility: "visible",
+            opacity: 1,
+            yPercent: 26
+          }
+        )
+
+        .to(
+          card,
+          {
+            yPercent: -55,
+            duration: 1.05,
+            ease: "power3.out"
+          }
+        )
+
+        .to(
+          card,
+          {
+            yPercent: -53,
+            duration: .18,
+            ease: "sine.out"
+          }
+        );
+
     }
-if (ring) {
-  tl.to(
-    ring,
-    {
-      opacity: 1,
-      y: 5,
-      scale: 1,
-      duration: .48,
-      ease: "back.out(1.45)"
-    },
-    "-=.22"
-  );
-}
-  
+
+
+    /* -------------------------------------------------------
+       RING
+    ------------------------------------------------------- */
+
+    if (ring) {
+
+      tl.to(
+        ring,
+        {
+          opacity: 1,
+          y: 5,
+          scale: 1,
+          duration: .48,
+          ease: "back.out(1.45)"
+        },
+        "-=.22"
+      );
+
+    }
+
+
+    /* -------------------------------------------------------
+       VINYL
+    ------------------------------------------------------- */
+
+    if (musicToggle) {
+
+      tl
+
+        .set(
+          musicToggle,
+          {
+            visibility: "visible"
+          }
+        )
+
+        .to(
+          musicToggle,
+          {
+            opacity: 1,
+            scale: 1,
+            duration: .48,
+            ease: "back.out(1.6)"
+          },
+          "-=.20"
+        );
+
+    }
+
+
+    /* -------------------------------------------------------
+       SCROLL
+    ------------------------------------------------------- */
 
     if (hint) {
+
       tl.to(
         hint,
         {
@@ -184,29 +445,56 @@ if (ring) {
           y: -3,
           duration: .25
         },
-        "-=.08"
+        "-=.10"
       );
+
     }
 
-    gsap.to(".opening-copy", {
-      opacity: 0,
-      y: -8,
-      duration: .25,
-      overwrite: true
-    });
+
+    /* -------------------------------------------------------
+       REMOVE OPENING TEXT
+    ------------------------------------------------------- */
+
+    gsap.to(
+      ".opening-copy",
+      {
+        opacity: 0,
+        y: -8,
+        duration: .25,
+        overwrite: true
+      }
+    );
+
   }
 
 
-  btn?.addEventListener("click", openEnvelope, {
-    once: true
-  });
-
-
-  window.setTimeout(() => {
-    if (!isOpen) {
-      document.body.classList.remove("invitation-locked");
+  btn?.addEventListener(
+    "click",
+    openEnvelope,
+    {
+      once: true
     }
-  }, 5000);
+  );
+
+
+  /* =========================================================
+     FAILSAFE UNLOCK
+  ========================================================= */
+
+  window.setTimeout(
+    () => {
+
+      if (!isOpen) {
+
+        document.body.classList.remove(
+          "invitation-locked"
+        );
+
+      }
+
+    },
+    5000
+  );
 
 
   /* =========================================================
@@ -220,26 +508,53 @@ if (ring) {
     "IntersectionObserver" in window &&
     !reduceMotion.matches
   ) {
-    document.documentElement.classList.add("js-reveal-ready");
 
-    const revealObserver = new IntersectionObserver(
-      entries => {
-        entries.forEach(entry => {
-          if (!entry.isIntersecting) return;
-
-          entry.target.classList.add("is-visible");
-          revealObserver.unobserve(entry.target);
-        });
-      },
-      {
-        rootMargin: "0px 0px -8% 0px",
-        threshold: .04
-      }
+    document.documentElement.classList.add(
+      "js-reveal-ready"
     );
 
-    revealEls.forEach(el => revealObserver.observe(el));
+
+    const revealObserver =
+      new IntersectionObserver(
+
+        entries => {
+
+          entries.forEach(
+            entry => {
+
+              if (!entry.isIntersecting) return;
+
+              entry.target.classList.add(
+                "is-visible"
+              );
+
+              revealObserver.unobserve(
+                entry.target
+              );
+
+            }
+          );
+
+        },
+
+        {
+          rootMargin: "0px 0px -8% 0px",
+          threshold: .04
+        }
+
+      );
+
+
+    revealEls.forEach(
+      el => revealObserver.observe(el)
+    );
+
   } else {
-    revealEls.forEach(el => el.classList.add("is-visible"));
+
+    revealEls.forEach(
+      el => el.classList.add("is-visible")
+    );
+
   }
 
 
@@ -248,25 +563,59 @@ if (ring) {
   ========================================================= */
 
   const gallery = $("#gallery");
-  const galleryImages = gallery ? $$("img", gallery) : [];
 
-  if (gallery && galleryImages.length) {
+  const galleryImages =
+    gallery
+      ? $$("img", gallery)
+      : [];
+
+
+  if (
+    gallery &&
+    galleryImages.length
+  ) {
+
     let failed = 0;
 
-    galleryImages.forEach(img => {
-      img.addEventListener(
-        "error",
-        () => {
-          failed += 1;
-          img.closest(".polaroid")?.setAttribute("hidden", "");
 
-          if (failed === galleryImages.length) {
-            gallery.setAttribute("hidden", "");
+    galleryImages.forEach(
+      img => {
+
+        img.addEventListener(
+          "error",
+          () => {
+
+            failed += 1;
+
+            img
+              .closest(".polaroid")
+              ?.setAttribute(
+                "hidden",
+                ""
+              );
+
+
+            if (
+              failed ===
+              galleryImages.length
+            ) {
+
+              gallery.setAttribute(
+                "hidden",
+                ""
+              );
+
+            }
+
+          },
+          {
+            once: true
           }
-        },
-        { once: true }
-      );
-    });
+        );
+
+      }
+    );
+
   }
 
 
@@ -287,31 +636,54 @@ if (ring) {
 
 
   if (scene && stage) {
-    const walkWorld = $("#walkWorld");
-    const waiterRig = $("#waiterRig");
-    const waiter = $("#walkWaiter");
-    const waiterShadow = $("#waiterShadow");
 
-    const cupid = $("#walkCupid");
-    const curtain = $("#walkLoopCurtain");
+    const walkWorld =
+      $("#walkWorld");
 
-    const dancingWoman = $("#dancingWoman");
-    const dancingMan = $("#dancingMan");
-    const dancingCouple = $("#dancingCouple");
-    const champagneWoman = $("#champagneWoman");
+    const waiterRig =
+      $("#waiterRig");
 
-    const tubaPlayer = $("#tubaPlayer");
+    const waiter =
+      $("#walkWaiter");
+
+    const waiterShadow =
+      $("#waiterShadow");
+
+    const cupid =
+      $("#walkCupid");
+
+    const curtain =
+      $("#walkLoopCurtain");
+
+    const dancingWoman =
+      $("#dancingWoman");
+
+    const dancingMan =
+      $("#dancingMan");
+
+    const dancingCouple =
+      $("#dancingCouple");
+
+    const champagneWoman =
+      $("#champagneWoman");
+
+    const tubaPlayer =
+      $("#tubaPlayer");
+
 
     const LOOP = 26;
 
 
-    sceneTimeline = gsap.timeline({
-      repeat: -1,
-      paused: true,
-      defaults: {
-        ease: "none"
-      }
-    });
+    sceneTimeline =
+      gsap.timeline(
+        {
+          repeat: -1,
+          paused: true,
+          defaults: {
+            ease: "none"
+          }
+        }
+      );
 
 
     /* =====================================================
@@ -319,62 +691,95 @@ if (ring) {
     ===================================================== */
 
     if (walkWorld) {
-      gsap.set(walkWorld, {
-        x: "8vw"
-      });
+
+      gsap.set(
+        walkWorld,
+        {
+          x: "8vw"
+        }
+      );
+
     }
 
+
     if (waiterRig) {
-      gsap.set(waiterRig, {
-        x: "-38vw"
-      });
+
+      gsap.set(
+        waiterRig,
+        {
+          x: "-38vw"
+        }
+      );
+
     }
 
 
     /* =====================================================
-       BACKGROUND CHARACTER SIZE
-
-       ოდნავ გაზრდილი:
-       woman      1.08
-       man        1.08
-       couple     1.08
-       champagne  1.08
-       tuba       1.10
+       CHARACTER SIZE
     ===================================================== */
 
     if (dancingWoman) {
-      gsap.set(dancingWoman, {
-        scale: 1.08,
-        transformOrigin: "50% 100%"
-      });
+
+      gsap.set(
+        dancingWoman,
+        {
+          scale: 1.08,
+          transformOrigin: "50% 100%"
+        }
+      );
+
     }
+
 
     if (dancingMan) {
-      gsap.set(dancingMan, {
-        scale: 1.08,
-        transformOrigin: "50% 100%"
-      });
+
+      gsap.set(
+        dancingMan,
+        {
+          scale: 1.08,
+          transformOrigin: "50% 100%"
+        }
+      );
+
     }
+
 
     if (dancingCouple) {
-      gsap.set(dancingCouple, {
-        scale: 1.08,
-        transformOrigin: "50% 100%"
-      });
+
+      gsap.set(
+        dancingCouple,
+        {
+          scale: 1.08,
+          transformOrigin: "50% 100%"
+        }
+      );
+
     }
+
 
     if (champagneWoman) {
-      gsap.set(champagneWoman, {
-        scale: 1.08,
-        transformOrigin: "50% 100%"
-      });
+
+      gsap.set(
+        champagneWoman,
+        {
+          scale: 1.08,
+          transformOrigin: "50% 100%"
+        }
+      );
+
     }
 
+
     if (tubaPlayer) {
-      gsap.set(tubaPlayer, {
-        scale: 1.1,
-        transformOrigin: "50% 100%"
-      });
+
+      gsap.set(
+        tubaPlayer,
+        {
+          scale: 1.1,
+          transformOrigin: "50% 100%"
+        }
+      );
+
     }
 
 
@@ -383,16 +788,21 @@ if (ring) {
     ===================================================== */
 
     if (cupid) {
-      gsap.set(cupid, {
-        left: "auto",
-        right: "-22vw",
-        top: "7%",
-        x: 0,
-        y: -75,
-        scaleX: -1,
-        rotation: -5,
-        opacity: 0
-      });
+
+      gsap.set(
+        cupid,
+        {
+          left: "auto",
+          right: "-22vw",
+          top: "7%",
+          x: 0,
+          y: -75,
+          scaleX: -1,
+          rotation: -5,
+          opacity: 0
+        }
+      );
+
     }
 
 
@@ -401,9 +811,14 @@ if (ring) {
     ===================================================== */
 
     if (curtain) {
-      gsap.set(curtain, {
-        opacity: 1
-      });
+
+      gsap.set(
+        curtain,
+        {
+          opacity: 1
+        }
+      );
+
 
       sceneTimeline.to(
         curtain,
@@ -414,6 +829,7 @@ if (ring) {
         },
         0
       );
+
     }
 
 
@@ -422,61 +838,71 @@ if (ring) {
     ===================================================== */
 
     if (walkWorld) {
+
       sceneTimeline.fromTo(
+
         walkWorld,
+
         {
           x: "8vw"
         },
+
         {
           x: "-205vw",
           duration: LOOP - .65,
           ease: "none"
         },
+
         0
+
       );
+
     }
 
 
     /* =====================================================
        WAITER TRAVEL
-       იგივე მოძრაობაა — არ შემიცვლია
     ===================================================== */
 
     if (waiterRig) {
+
       sceneTimeline.fromTo(
+
         waiterRig,
+
         {
           x: "-38vw"
         },
+
         {
           x: "112vw",
           duration: LOOP - 1.5,
           ease: "none"
         },
+
         .3
+
       );
+
     }
 
 
     /* =====================================================
-       BACKGROUND DANCERS
-
-       ყველა ერთად მუდმივად მოძრაობს.
-       მოძრაობა განზრახ პატარაა, რომ PNG არ "იფრინოს".
+       BACKGROUND DANCE
     ===================================================== */
 
-    backgroundDance = gsap.timeline({
-      repeat: -1,
-      yoyo: true,
-      paused: true
-    });
+    backgroundDance =
+      gsap.timeline(
+        {
+          repeat: -1,
+          yoyo: true,
+          paused: true
+        }
+      );
 
-
-    /* -------------------------
-       DANCING WOMAN
-    ------------------------- */
 
     if (dancingWoman) {
+
       backgroundDance.to(
         dancingWoman,
         {
@@ -490,14 +916,12 @@ if (ring) {
         },
         0
       );
+
     }
 
 
-    /* -------------------------
-       DANCING MAN
-    ------------------------- */
-
     if (dancingMan) {
+
       backgroundDance.to(
         dancingMan,
         {
@@ -511,14 +935,12 @@ if (ring) {
         },
         0
       );
+
     }
 
 
-    /* -------------------------
-       DANCING COUPLE
-    ------------------------- */
-
     if (dancingCouple) {
+
       backgroundDance.to(
         dancingCouple,
         {
@@ -532,14 +954,12 @@ if (ring) {
         },
         0
       );
+
     }
 
 
-    /* -------------------------
-       CHAMPAGNE WOMAN
-    ------------------------- */
-
     if (champagneWoman) {
+
       backgroundDance.to(
         champagneWoman,
         {
@@ -553,6 +973,7 @@ if (ring) {
         },
         0
       );
+
     }
 
 
@@ -561,9 +982,13 @@ if (ring) {
     ===================================================== */
 
     if (cupid) {
+
       sceneTimeline
+
         .fromTo(
+
           cupid,
+
           {
             right: "-22vw",
             y: -75,
@@ -571,6 +996,7 @@ if (ring) {
             rotation: -5,
             opacity: 0
           },
+
           {
             right: "9vw",
             y: 30,
@@ -580,10 +1006,15 @@ if (ring) {
             duration: 2.7,
             ease: "power1.out"
           },
+
           14.15
+
         )
+
         .to(
+
           cupid,
+
           {
             right: "25vw",
             y: 55,
@@ -591,10 +1022,15 @@ if (ring) {
             duration: 1.7,
             ease: "sine.inOut"
           },
+
           16.85
+
         )
+
         .to(
+
           cupid,
+
           {
             right: "108vw",
             y: 5,
@@ -603,8 +1039,11 @@ if (ring) {
             duration: 2.3,
             ease: "power1.in"
           },
+
           18.55
+
         );
+
     }
 
 
@@ -613,6 +1052,7 @@ if (ring) {
     ===================================================== */
 
     if (curtain) {
+
       sceneTimeline.to(
         curtain,
         {
@@ -622,164 +1062,245 @@ if (ring) {
         },
         LOOP - .25
       );
+
     }
 
 
     /* =====================================================
        WAITER WALKING
-       იგივე დარჩა
     ===================================================== */
 
     if (waiter) {
-      waiterWalk = gsap.timeline({
-        repeat: -1,
-        paused: true,
-        defaults: {
-          ease: "sine.inOut"
-        }
-      });
+
+      waiterWalk =
+        gsap.timeline(
+          {
+            repeat: -1,
+            paused: true,
+            defaults: {
+              ease: "sine.inOut"
+            }
+          }
+        );
+
 
       waiterWalk
-        .to(waiter, {
-          rotation: .8,
-          scaleY: .994,
-          duration: .24,
-          transformOrigin: "50% 100%"
-        })
-        .to(waiter, {
-          rotation: -.8,
-          scaleY: 1,
-          duration: .24,
-          transformOrigin: "50% 100%"
-        })
-        .to(waiter, {
-          rotation: .65,
-          scaleY: .995,
-          duration: .24,
-          transformOrigin: "50% 100%"
-        })
-        .to(waiter, {
-          rotation: -.55,
-          scaleY: 1,
-          duration: .24,
-          transformOrigin: "50% 100%"
-        });
+
+        .to(
+          waiter,
+          {
+            rotation: .8,
+            scaleY: .994,
+            duration: .24,
+            transformOrigin: "50% 100%"
+          }
+        )
+
+        .to(
+          waiter,
+          {
+            rotation: -.8,
+            scaleY: 1,
+            duration: .24,
+            transformOrigin: "50% 100%"
+          }
+        )
+
+        .to(
+          waiter,
+          {
+            rotation: .65,
+            scaleY: .995,
+            duration: .24,
+            transformOrigin: "50% 100%"
+          }
+        )
+
+        .to(
+          waiter,
+          {
+            rotation: -.55,
+            scaleY: 1,
+            duration: .24,
+            transformOrigin: "50% 100%"
+          }
+        );
+
     }
 
+
     if (waiterShadow) {
-      gsap.set(waiterShadow, {
-        transformOrigin: "50% 100%"
-      });
+
+      gsap.set(
+        waiterShadow,
+        {
+          transformOrigin: "50% 100%"
+        }
+      );
+
     }
 
 
     /* =====================================================
-       TUBA PLAYER / მესაყვირე
-
-       უფრო შესამჩნევი, მაგრამ რბილი მოძრაობა.
+       TUBA PLAYER
     ===================================================== */
 
     if (tubaPlayer) {
-      tubaPlaying = gsap.timeline({
-        repeat: -1,
-        paused: true,
-        defaults: {
-          ease: "sine.inOut"
-        }
-      });
+
+      tubaPlaying =
+        gsap.timeline(
+          {
+            repeat: -1,
+            paused: true,
+            defaults: {
+              ease: "sine.inOut"
+            }
+          }
+        );
+
 
       tubaPlaying
-        .to(tubaPlayer, {
-          rotation: -2.3,
-          x: -3,
-          y: -4,
-          scale: 1.115,
-          duration: .42,
-          transformOrigin: "50% 100%"
-        })
 
-        .to(tubaPlayer, {
-          rotation: 2.1,
-          x: 3,
-          y: 0,
-          scale: 1.1,
-          duration: .48,
-          transformOrigin: "50% 100%"
-        })
+        .to(
+          tubaPlayer,
+          {
+            rotation: -2.3,
+            x: -3,
+            y: -4,
+            scale: 1.115,
+            duration: .42,
+            transformOrigin: "50% 100%"
+          }
+        )
 
-        .to(tubaPlayer, {
-          rotation: -1.5,
-          x: -2,
-          y: -3,
-          scale: 1.12,
-          duration: .38,
-          transformOrigin: "50% 100%"
-        })
+        .to(
+          tubaPlayer,
+          {
+            rotation: 2.1,
+            x: 3,
+            y: 0,
+            scale: 1.1,
+            duration: .48,
+            transformOrigin: "50% 100%"
+          }
+        )
 
-        .to(tubaPlayer, {
-          rotation: 1.2,
-          x: 2,
-          y: 0,
-          scale: 1.1,
-          duration: .42,
-          transformOrigin: "50% 100%"
-        });
+        .to(
+          tubaPlayer,
+          {
+            rotation: -1.5,
+            x: -2,
+            y: -3,
+            scale: 1.12,
+            duration: .38,
+            transformOrigin: "50% 100%"
+          }
+        )
+
+        .to(
+          tubaPlayer,
+          {
+            rotation: 1.2,
+            x: 2,
+            y: 0,
+            scale: 1.1,
+            duration: .42,
+            transformOrigin: "50% 100%"
+          }
+        );
+
     }
 
 
     /* =====================================================
-       PLAY / PAUSE
+       SCENE PLAY / PAUSE
     ===================================================== */
 
-    const syncScenePlayback = () => {
-      const shouldPlay =
-        sceneVisible &&
-        pageVisible &&
-        !reduceMotion.matches;
+    const syncScenePlayback =
+      () => {
 
-      scene.classList.toggle(
-        "is-active",
-        shouldPlay
-      );
+        const shouldPlay =
+          sceneVisible &&
+          pageVisible &&
+          !reduceMotion.matches;
 
-      if (shouldPlay) {
-        sceneTimeline?.play();
-        waiterWalk?.play();
-        backgroundDance?.play();
-        tubaPlaying?.play();
-      } else {
-        sceneTimeline?.pause();
-        waiterWalk?.pause();
-        backgroundDance?.pause();
-        tubaPlaying?.pause();
-      }
-    };
+
+        scene.classList.toggle(
+          "is-active",
+          shouldPlay
+        );
+
+
+        if (shouldPlay) {
+
+          sceneTimeline?.play();
+
+          waiterWalk?.play();
+
+          backgroundDance?.play();
+
+          tubaPlaying?.play();
+
+        } else {
+
+          sceneTimeline?.pause();
+
+          waiterWalk?.pause();
+
+          backgroundDance?.pause();
+
+          tubaPlaying?.pause();
+
+        }
+
+      };
 
 
     /* =====================================================
-       ONLY RUN WHEN VISIBLE
+       ONLY RUN SCENE WHEN VISIBLE
     ===================================================== */
 
-    if ("IntersectionObserver" in window) {
-      const observer = new IntersectionObserver(
-        entries => {
-          sceneVisible =
-            entries.some(
-              entry => entry.isIntersecting
-            );
+    if (
+      "IntersectionObserver" in window
+    ) {
 
-          syncScenePlayback();
-        },
-        {
-          rootMargin: "10% 0px 10% 0px",
-          threshold: .01
-        }
+      const observer =
+        new IntersectionObserver(
+
+          entries => {
+
+            sceneVisible =
+              entries.some(
+                entry =>
+                  entry.isIntersecting
+              );
+
+
+            syncScenePlayback();
+
+          },
+
+          {
+            rootMargin:
+              "10% 0px 10% 0px",
+
+            threshold:
+              .01
+          }
+
+        );
+
+
+      observer.observe(
+        scene
       );
 
-      observer.observe(scene);
     } else {
+
       sceneVisible = true;
+
       syncScenePlayback();
+
     }
 
 
@@ -788,19 +1309,28 @@ if (ring) {
     ===================================================== */
 
     document.addEventListener(
+
       "visibilitychange",
+
       () => {
+
         pageVisible =
           !document.hidden;
 
+
         syncScenePlayback();
+
       }
+
     );
 
 
     reduceMotion.addEventListener?.(
+
       "change",
+
       syncScenePlayback
+
     );
 
 
@@ -808,24 +1338,48 @@ if (ring) {
        REDUCED MOTION
     ===================================================== */
 
-    if (reduceMotion.matches) {
-      sceneTimeline.pause(14);
+    if (
+      reduceMotion.matches
+    ) {
 
-      backgroundDance?.pause(0);
-      tubaPlaying?.pause(0);
+      sceneTimeline.pause(
+        14
+      );
+
+      backgroundDance?.pause(
+        0
+      );
+
+      tubaPlaying?.pause(
+        0
+      );
+
 
       if (curtain) {
-        gsap.set(curtain, {
-          opacity: 0
-        });
+
+        gsap.set(
+          curtain,
+          {
+            opacity: 0
+          }
+        );
+
       }
 
+
       if (cupid) {
-        gsap.set(cupid, {
-          opacity: 0
-        });
+
+        gsap.set(
+          cupid,
+          {
+            opacity: 0
+          }
+        );
+
       }
+
     }
+
   }
 
 
@@ -833,24 +1387,34 @@ if (ring) {
      COUNTDOWN
   ========================================================= */
 
-  const countdown = $("#countdown");
+  const countdown =
+    $("#countdown");
+
 
   if (countdown) {
+
     const target =
       new Date(
         countdown.dataset.date
       ).getTime();
 
-    const pad = (
-      n,
-      len = 2
-    ) =>
-      String(
-        Math.max(0, n)
-      ).padStart(
-        len,
-        "0"
-      );
+
+    const pad =
+      (
+        n,
+        len = 2
+      ) =>
+
+        String(
+          Math.max(
+            0,
+            n
+          )
+        ).padStart(
+          len,
+          "0"
+        );
+
 
     const daysEl =
       $(
@@ -858,17 +1422,20 @@ if (ring) {
         countdown
       );
 
+
     const hoursEl =
       $(
         "[data-hours]",
         countdown
       );
 
+
     const minutesEl =
       $(
         "[data-minutes]",
         countdown
       );
+
 
     const secondsEl =
       $(
@@ -877,72 +1444,114 @@ if (ring) {
       );
 
 
-    const tick = () => {
-      const distance =
-        Math.max(
-          0,
-          target - Date.now()
-        );
+    const tick =
+      () => {
 
-      const days =
-        Math.floor(
-          distance / 86400000
-        );
+        const distance =
+          Math.max(
+            0,
+            target -
+            Date.now()
+          );
 
-      const hours =
-        Math.floor(
-          (
-            distance %
+
+        const days =
+          Math.floor(
+            distance /
             86400000
-          ) /
-          3600000
-        );
+          );
 
-      const minutes =
-        Math.floor(
-          (
-            distance %
+
+        const hours =
+          Math.floor(
+
+            (
+              distance %
+              86400000
+            ) /
+
             3600000
-          ) /
-          60000
-        );
 
-      const seconds =
-        Math.floor(
-          (
-            distance %
+          );
+
+
+        const minutes =
+          Math.floor(
+
+            (
+              distance %
+              3600000
+            ) /
+
             60000
-          ) /
-          1000
-        );
 
-      if (daysEl) {
-        daysEl.textContent =
-          pad(days, 2);
-      }
+          );
 
-      if (hoursEl) {
-        hoursEl.textContent =
-          pad(hours);
-      }
 
-      if (minutesEl) {
-        minutesEl.textContent =
-          pad(minutes);
-      }
+        const seconds =
+          Math.floor(
 
-      if (secondsEl) {
-        secondsEl.textContent =
-          pad(seconds);
-      }
-    };
+            (
+              distance %
+              60000
+            ) /
+
+            1000
+
+          );
+
+
+        if (daysEl) {
+
+          daysEl.textContent =
+            pad(
+              days,
+              2
+            );
+
+        }
+
+
+        if (hoursEl) {
+
+          hoursEl.textContent =
+            pad(
+              hours
+            );
+
+        }
+
+
+        if (minutesEl) {
+
+          minutesEl.textContent =
+            pad(
+              minutes
+            );
+
+        }
+
+
+        if (secondsEl) {
+
+          secondsEl.textContent =
+            pad(
+              seconds
+            );
+
+        }
+
+      };
+
 
     tick();
+
 
     window.setInterval(
       tick,
       1000
     );
+
   }
 
 
@@ -958,22 +1567,34 @@ if (ring) {
 
 
   rsvpForm?.addEventListener(
+
     "submit",
+
     event => {
+
       event.preventDefault();
+
 
       if (
         !rsvpForm.checkValidity()
       ) {
+
         rsvpForm.reportValidity();
+
         return;
+
       }
 
+
       if (formStatus) {
+
         formStatus.textContent =
           "ფორმა მზადაა — გაგზავნისთვის საჭიროა Google Sheets endpoint-ის დაკავშირება.";
+
       }
+
     }
+
   );
 
 
@@ -982,19 +1603,28 @@ if (ring) {
   ========================================================= */
 
   window.addEventListener(
+
     "load",
+
     () => {
+
       if (
         !document.body.classList.contains(
           "invitation-locked"
         )
       ) {
-        document.body.style.overflowY = "";
+
+        document.body.style.overflowY =
+          "";
+
       }
+
     },
+
     {
       once: true
     }
+
   );
 
 })();

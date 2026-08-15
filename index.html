@@ -6,25 +6,48 @@
   <meta name="theme-color" content="#f3eee5">
   <meta name="description" content="გიორგი & მარიამი — ქორწილის მოსაწვევი, 3 ოქტომბერი 2026">
   <meta name="color-scheme" content="light">
+
   <title>გიორგი & მარიამი — ქორწილის მოსაწვევი</title>
-<link rel="stylesheet" href="style.css">
+
+  <link rel="stylesheet" href="style.css">
 </head>
 
 <body class="invitation-locked">
+
 <main>
 
-  <!-- 01 — ENVELOPE -->
+  <!-- =========================================================
+       01 — ENVELOPE
+  ========================================================== -->
+
   <section class="opening" id="opening">
+
     <div class="opening-copy" aria-hidden="true">
       <p class="tap-note">დააჭირეთ კონვერტს გასახსნელად</p>
     </div>
 
-    <button class="envelope-stage" id="openInvitation" type="button" aria-label="გახსენით მოსაწვევი">
+
+    <button
+      class="envelope-stage"
+      id="openInvitation"
+      type="button"
+      aria-label="გახსენით მოსაწვევი"
+    >
+
       <div class="envelope-shell" id="envelopeShell">
-        <img class="envelope-back" src="assets/envelope-body.png" alt="" draggable="false" decoding="async">
+
+        <img
+          class="envelope-back"
+          src="assets/envelope-body.png"
+          alt=""
+          draggable="false"
+          decoding="async"
+        >
+
+
+        <!-- INVITATION CARD -->
 
         <div class="invite-card" id="inviteCard">
-          
 
           <h1 class="invite-names">
             <span>გიორგი</span>
@@ -32,7 +55,9 @@
             <span>მარიამი</span>
           </h1>
 
-          <time datetime="2026-10-03">03.10.2026</time>
+          <time datetime="2026-10-03">
+            03.10.2026
+          </time>
 
           <img
             class="invite-ring"
@@ -42,24 +67,114 @@
             draggable="false"
             decoding="async"
           >
+
         </div>
 
-        <img class="envelope-front" src="assets/envelope-body.png" alt="" draggable="false" decoding="async">
-        <img class="envelope-flap" id="envelopeFlap" src="assets/envelope-flap.png" alt="" draggable="false" decoding="async">
-        <img class="wax-seal" id="waxSeal" src="assets/wax.png" alt="" draggable="false" decoding="async">
+
+        <!-- ENVELOPE FRONT -->
+
+        <img
+          class="envelope-front"
+          src="assets/envelope-body.png"
+          alt=""
+          draggable="false"
+          decoding="async"
+        >
+
+
+        <!-- ENVELOPE FLAP -->
+
+        <img
+          class="envelope-flap"
+          id="envelopeFlap"
+          src="assets/envelope-flap.png"
+          alt=""
+          draggable="false"
+          decoding="async"
+        >
+
+
+        <!-- WAX -->
+
+        <img
+          class="wax-seal"
+          id="waxSeal"
+          src="assets/wax.png"
+          alt=""
+          draggable="false"
+          decoding="async"
+        >
+
       </div>
+
     </button>
 
-    <div class="opening-scroll" id="openingScroll" aria-hidden="true">
-      <span>Scroll</span><i></i>
+
+
+    <!-- =====================================================
+         MUSIC
+    ====================================================== -->
+
+    <audio
+      id="weddingMusic"
+      src="assets/wedding-music.mp3"
+      preload="auto"
+      loop
+    ></audio>
+
+
+    <button
+      class="music-vinyl"
+      id="musicToggle"
+      type="button"
+      aria-label="მუსიკის ჩართვა ან გამორთვა"
+      aria-pressed="false"
+    >
+
+      <img
+        src="assets/music (2).png"
+        alt=""
+        draggable="false"
+        decoding="async"
+      >
+
+    </button>
+
+
+
+    <!-- SCROLL -->
+
+    <div
+      class="opening-scroll"
+      id="openingScroll"
+      aria-hidden="true"
+    >
+      <span>Scroll</span>
+      <i></i>
     </div>
+
   </section>
+
+
+
+  <!-- =========================================================
+       INVITATION FLOW
+  ========================================================== -->
 
   <div class="invitation-flow">
 
-    <!-- 02 — NAMES -->
-    <section class="content-section arch-section reveal" id="names">
+
+    <!-- =====================================================
+         02 — NAMES / INVITATION
+    ====================================================== -->
+
+    <section
+      class="content-section arch-section reveal"
+      id="names"
+    >
+
       <div class="asset-card arch-asset">
+
         <img
           class="card-bg"
           src="assets/arch-card.png"
@@ -69,294 +184,587 @@
           decoding="async"
         >
 
+
         <div class="asset-content arch-content">
-          
+
+          <p class="arch-invite-title">
+            ძვირფასო სტუმრებო
+          </p>
+
+
+          <p class="arch-invite-text">
+            გიწვევთ ჩვენი ცხოვრების<br>
+            ერთ-ერთი ყველაზე ლამაზი დღის<br>
+            გასაზიარებლად
+          </p>
+
+
+          <div
+            class="arch-date"
+            aria-label="03 ოქტომბერი 2026"
           >
 
-    <p class="arch-invite-title">ძვირფასო სტუმრებო</p>
+            <span class="date-day">
+              03
+            </span>
 
-<p class="arch-invite-text">
-  გიწვევთ ჩვენი ცხოვრების<br>
-  ერთ-ერთი ყველაზე ლამაზი დღის<br>
-  გასაზიარებლად
-</p>
+            <span class="date-divider"></span>
 
-<div class="arch-date" aria-label="03 ოქტომბერი 2026">
-  <span class="date-day">03</span>
-  <span class="date-divider"></span>
-  <span class="date-month">10</span>
-  <span class="date-divider"></span>
-  <span class="date-year">2026</span>
-</div>
+            <span class="date-month">
+              10
+            </span>
+
+            <span class="date-divider"></span>
+
+            <span class="date-year">
+              2026
+            </span>
+
+          </div>
+
         </div>
+
       </div>
+
     </section>
 
- <!-- 04 — DETAILS -->
-<section class="content-section details-section reveal" id="details">
-  <div class="asset-card details-asset">
 
-    <img
-      class="card-bg"
-      src="assets/rsvp-card.png"
-      alt=""
-      draggable="false"
-      loading="lazy"
-      decoding="async"
+
+    <!-- =====================================================
+         04 — DETAILS
+    ====================================================== -->
+
+    <section
+      class="content-section details-section reveal"
+      id="details"
     >
 
-    <div class="asset-content details-content">
+      <div class="asset-card details-asset">
 
-      <h2 class="details-title">ქორწილის დეტალები</h2>
+        <img
+          class="card-bg"
+          src="assets/rsvp-card.png"
+          alt=""
+          draggable="false"
+          loading="lazy"
+          decoding="async"
+        >
 
-      <p class="map-note">
-        ლოკაციაზე დაჭერით გაიხსნება Google Maps
-      </p>
+
+        <div class="asset-content details-content">
 
 
-      <!-- 13:00 -->
-      <div class="timeline-event">
+          <h2 class="details-title">
+            ქორწილის დეტალები
+          </h2>
 
-        <time>13:00</time>
 
-        <div class="timeline-marker" aria-hidden="true">
-          <span></span>
-        </div>
+          <p class="map-note">
+            ლოკაციაზე დაჭერით გაიხსნება Google Maps
+          </p>
 
-        <div class="timeline-info">
-          <p>ჯვრისწერის ცერემონიალი</p>
-          <span class="place">ჯვრის მონასტერი</span>
+
+
+          <!-- 13:00 -->
+
+          <div class="timeline-event">
+
+            <time>13:00</time>
+
+            <div
+              class="timeline-marker"
+              aria-hidden="true"
+            >
+              <span></span>
+            </div>
+
+            <div class="timeline-info">
+
+              <p>
+                ჯვრისწერის ცერემონიალი
+              </p>
+
+              <span class="place">
+                ჯვრის მონასტერი
+              </span>
+
+            </div>
+
+          </div>
+
+
+
+          <!-- 16:00 -->
+
+          <div class="timeline-event">
+
+            <time>16:00</time>
+
+            <div
+              class="timeline-marker"
+              aria-hidden="true"
+            >
+              <span></span>
+            </div>
+
+            <div class="timeline-info">
+
+              <p>
+                ხელისმოწერის ცერემონია
+              </p>
+
+              <a
+                href="https://maps.app.goo.gl/F2mtir1VQTysMQQy5?g_st=ic"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+
+                რესტორანი „შუაგული“
+
+                <small>
+                  მუხრანის ველი, წეროვანი
+                </small>
+
+              </a>
+
+            </div>
+
+          </div>
+
+
+
+          <!-- 17:00 -->
+
+          <div class="timeline-event">
+
+            <time>17:00</time>
+
+            <div
+              class="timeline-marker"
+              aria-hidden="true"
+            >
+              <span></span>
+            </div>
+
+            <div class="timeline-info">
+
+              <p>
+                წვეულება
+              </p>
+
+              <a
+                href="https://maps.app.goo.gl/F2mtir1VQTysMQQy5?g_st=ic"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+
+                რესტორანი „შუაგული“
+
+                <small>
+                  მუხრანის ველი, წეროვანი
+                </small>
+
+              </a>
+
+            </div>
+
+          </div>
+
         </div>
 
       </div>
 
+    </section>
 
-      <!-- 16:00 -->
-      <div class="timeline-event">
 
-        <time>16:00</time>
 
-        <div class="timeline-marker" aria-hidden="true">
-          <span></span>
-        </div>
+    <!-- =====================================================
+         05 — AUTOPLAY CINEMATIC WEDDING WORLD
+    ====================================================== -->
 
-        <div class="timeline-info">
+    <section
+      class="walk-scene"
+      id="walkScene"
+      aria-label="ქორწილის ილუსტრირებული ანიმაცია"
+    >
 
-          <p>ხელისმოწერის ცერემონია</p>
+      <div
+        class="walk-stage"
+        id="walkStage"
+      >
 
-          <a
-            href="https://maps.app.goo.gl/F2mtir1VQTysMQQy5?g_st=ic"
-            target="_blank"
-            rel="noopener noreferrer"
+
+        <!-- BACKGROUND -->
+
+        <img
+          class="walk-background"
+          src="assets/back6.png"
+          alt=""
+          draggable="false"
+          loading="lazy"
+          decoding="async"
+        >
+
+
+
+        <!-- WEDDING CHARACTERS -->
+
+        <div
+          class="walk-world"
+          id="walkWorld"
+        >
+
+
+          <!-- DANCING WOMAN -->
+
+          <img
+            class="dancing-woman"
+            id="dancingWoman"
+            src="assets/dancing-woman.png"
+            alt=""
+            draggable="false"
+            loading="lazy"
+            decoding="async"
           >
-            რესტორანი „შუაგული“
-            <small>მუხრანის ველი, წეროვანი</small>
-          </a>
-
-        </div>
-
-      </div>
 
 
-      <!-- 17:00 -->
-      <div class="timeline-event">
+          <!-- DANCING MAN -->
 
-        <time>17:00</time>
-
-        <div class="timeline-marker" aria-hidden="true">
-          <span></span>
-        </div>
-
-        <div class="timeline-info">
-
-          <p>წვეულება</p>
-
-          <a
-            href="https://maps.app.goo.gl/F2mtir1VQTysMQQy5?g_st=ic"
-            target="_blank"
-            rel="noopener noreferrer"
+          <img
+            class="dancing-man"
+            id="dancingMan"
+            src="assets/dancing-couple.webp"
+            alt=""
+            draggable="false"
+            loading="lazy"
+            decoding="async"
           >
-            რესტორანი „შუაგული“
-            <small>მუხრანის ველი, წეროვანი</small>
-          </a>
+
+
+          <!-- DANCING COUPLE -->
+
+          <img
+            class="dancing-couple"
+            id="dancingCouple"
+            src="assets/couple.png"
+            alt=""
+            draggable="false"
+            loading="lazy"
+            decoding="async"
+          >
+
+
+          <!-- TUBA PLAYER -->
+
+          <img
+            class="tuba-player"
+            id="tubaPlayer"
+            src="assets/music.png"
+            alt=""
+            draggable="false"
+            loading="lazy"
+            decoding="async"
+          >
 
         </div>
 
+
+
+        <!-- WAITER + SHADOW -->
+
+        <div
+          class="waiter-rig"
+          id="waiterRig"
+        >
+
+          <img
+            class="waiter-shadow"
+            id="waiterShadow"
+            src="assets/weitershadow.png"
+            alt=""
+            draggable="false"
+            loading="lazy"
+            decoding="async"
+          >
+
+          <img
+            class="walk-waiter"
+            id="walkWaiter"
+            src="assets/weiter.png"
+            alt=""
+            draggable="false"
+            loading="lazy"
+            decoding="async"
+          >
+
+        </div>
+
+
+
+        <!-- CUPID -->
+
+        <img
+          class="walk-cupid"
+          id="walkCupid"
+          src="assets/cupid.png"
+          alt=""
+          draggable="false"
+          loading="lazy"
+          decoding="async"
+        >
+
+
+        <div
+          class="walk-loop-curtain"
+          id="walkLoopCurtain"
+          aria-hidden="true"
+        ></div>
+
       </div>
 
-    </div>
+    </section>
 
-  </div>
-</section>
-<!-- 05 — AUTOPLAY CINEMATIC WEDDING WORLD -->
-<section class="walk-scene" id="walkScene" aria-label="ქორწილის ილუსტრირებული ანიმაცია">
-  <div class="walk-stage" id="walkStage">
 
-    <!-- ONE BACKGROUND -->
-    <img
-      class="walk-background"
-      src="assets/back6.png"
-      alt=""
-      draggable="false"
-      loading="lazy"
-      decoding="async"
+
+    <!-- =====================================================
+         06 — DRESS CODE
+    ====================================================== -->
+
+    <section
+      class="content-section dress-section reveal"
+      id="dressCode"
     >
 
-    <!-- WEDDING CHARACTERS -->
-    <div class="walk-world" id="walkWorld">
-
-      <!-- ONE DANCING WOMAN -->
-      <img
-        class="dancing-woman"
-        id="dancingWoman"
-        src="assets/dancing-woman.png"
-        alt=""
-        draggable="false"
-        loading="lazy"
-        decoding="async"
-      >
-
-      <!-- ONE DANCING MAN -->
-      <img
-        class="dancing-man"
-        id="dancingMan"
-        src="assets/dancing-couple.webp"
-        alt=""
-        draggable="false"
-        loading="lazy"
-        decoding="async"
-      >
-
-      <!-- ONE DANCING COUPLE -->
-      <img
-        class="dancing-couple"
-        id="dancingCouple"
-        src="assets/couple.png"
-        alt=""
-        draggable="false"
-        loading="lazy"
-        decoding="async"
-      >
-
-      <!-- ONE TUBA / SOUSAPHONE PLAYER -->
-      <img
-        class="tuba-player"
-        id="tubaPlayer"
-        src="assets/music.png"
-        alt=""
-        draggable="false"
-        loading="lazy"
-        decoding="async"
-      >
-
-    </div>
-
-    <!-- ONE WAITER + SHADOW -->
-<div class="waiter-rig" id="waiterRig">
-
-  <img
-    class="waiter-shadow"
-    id="waiterShadow"
-    src="assets/weitershadow.png"
-    alt=""
-    draggable="false"
-    loading="lazy"
-    decoding="async"
-  >
-
-  <img
-    class="walk-waiter"
-    id="walkWaiter"
-    src="assets/weiter.png"
-    alt=""
-    draggable="false"
-    loading="lazy"
-    decoding="async"
-  >
-
-</div>
-    <!-- ONE CUPID -->
-    <img
-      class="walk-cupid"
-      id="walkCupid"
-      src="assets/cupid.png"
-      alt=""
-      draggable="false"
-      loading="lazy"
-      decoding="async"
-    >
-
-    <div class="walk-loop-curtain" id="walkLoopCurtain" aria-hidden="true"></div>
-
-  </div>
-</section>
-    <!-- 06 — DRESS CODE -->
-    <section class="content-section dress-section reveal" id="dressCode">
       <div class="asset-card dress-asset">
-        <img class="card-bg" src="assets/dress-card.png" alt="" draggable="false" loading="lazy" decoding="async">
+
+        <img
+          class="card-bg"
+          src="assets/dress-card.png"
+          alt=""
+          draggable="false"
+          loading="lazy"
+          decoding="async"
+        >
+
+
         <div class="asset-content dress-content">
-          <h2>ჩაცმის სტილი</h2>
-          <p>გთხოვთ, შეარჩიოთ ნეიტრალური ფერები</p>
-          <p class="dress-note">მამაკაცებისთვის სავალდებულოა შარვალ-კოსტუმი.</p>
-         
+
+          <h2>
+            ჩაცმის სტილი
+          </h2>
+
+          <p>
+            გთხოვთ, შეარჩიოთ ნეიტრალური ფერები
+          </p>
+
+          <p class="dress-note">
+            მამაკაცებისთვის სავალდებულოა შარვალ-კოსტუმი.
+          </p>
+
         </div>
+
       </div>
+
     </section>
 
-    <!-- 07 — RSVP -->
-    <section class="content-section rsvp-section reveal" id="rsvp">
+
+
+    <!-- =====================================================
+         07 — RSVP
+    ====================================================== -->
+
+    <section
+      class="content-section rsvp-section reveal"
+      id="rsvp"
+    >
+
       <div class="asset-card rsvp-asset">
-        <img class="card-bg" src="assets/details-card.png" alt="" draggable="false" loading="lazy" decoding="async">
+
+        <img
+          class="card-bg"
+          src="assets/details-card.png"
+          alt=""
+          draggable="false"
+          loading="lazy"
+          decoding="async"
+        >
+
+
         <div class="asset-content rsvp-content">
-          <h2>შემოგვიერთდებით?</h2>
-          <p class="rsvp-intro">გთხოვთ, დაგვიდასტუროთ თქვენი დასწრება 31 აგვისტომდე.</p>
 
-          <form id="rsvpForm" novalidate>
+          <h2>
+            შემოგვიერთდებით?
+          </h2>
+
+          <p class="rsvp-intro">
+            გთხოვთ, დაგვიდასტუროთ თქვენი დასწრება 31 აგვისტომდე.
+          </p>
+
+
+          <form
+            id="rsvpForm"
+            novalidate
+          >
+
+
             <label>
-              <span>სახელი და გვარი</span>
-              <input type="text" name="name" autocomplete="name" required>
+
+              <span>
+                სახელი და გვარი
+              </span>
+
+              <input
+                type="text"
+                name="name"
+                autocomplete="name"
+                required
+              >
+
             </label>
 
+
+
             <label>
-              <span>დასწრება</span>
-              <select name="attendance" required>
-                <option value="" disabled selected>აირჩიეთ</option>
-                <option value="yes">დაგესწრებით</option>
-                <option value="no">ვერ დაგესწრებით</option>
+
+              <span>
+                დასწრება
+              </span>
+
+              <select
+                name="attendance"
+                required
+              >
+
+                <option
+                  value=""
+                  disabled
+                  selected
+                >
+                  აირჩიეთ
+                </option>
+
+                <option value="yes">
+                  დაგესწრებით
+                </option>
+
+                <option value="no">
+                  ვერ დაგესწრებით
+                </option>
+
               </select>
+
             </label>
+
+
 
             <label>
-              <span>სურვილი / კომენტარი</span>
-              <textarea name="message" rows="3" placeholder="დაგვიტოვეთ სურვილი..."></textarea>
+
+              <span>
+                სურვილი / კომენტარი
+              </span>
+
+              <textarea
+                name="message"
+                rows="3"
+                placeholder="დაგვიტოვეთ სურვილი..."
+              ></textarea>
+
             </label>
 
-            <button class="submit-btn" type="submit">პასუხის გაგზავნა</button>
-            <p class="form-status" id="formStatus" role="status" aria-live="polite"></p>
+
+
+            <button
+              class="submit-btn"
+              type="submit"
+            >
+              პასუხის გაგზავნა
+            </button>
+
+
+            <p
+              class="form-status"
+              id="formStatus"
+              role="status"
+              aria-live="polite"
+            ></p>
+
           </form>
+
         </div>
+
       </div>
+
     </section>
 
-    <!-- 08 — COUNTDOWN -->
-    <section class="content-section countdown-section reveal" id="countdownSection">
+
+
+    <!-- =====================================================
+         08 — COUNTDOWN
+    ====================================================== -->
+
+    <section
+      class="content-section countdown-section reveal"
+      id="countdownSection"
+    >
+
       <div class="countdown-inner">
-        <p class="section-kicker">ქორწილამდე დარჩენილია</p>
-<div class="countdown" id="countdown" data-date="2026-10-03T13:00:00+04:00">
-          <div><strong data-days>000</strong><span>დღე</span></div><i></i>
-          <div><strong data-hours>00</strong><span>საათი</span></div><i></i>
-          <div><strong data-minutes>00</strong><span>წუთი</span></div><i></i>
-          <div><strong data-seconds>00</strong><span>წამი</span></div>
+
+
+        <p class="section-kicker">
+          ქორწილამდე დარჩენილია
+        </p>
+
+
+        <div
+          class="countdown"
+          id="countdown"
+          data-date="2026-10-03T13:00:00+04:00"
+        >
+
+          <div>
+            <strong data-days>000</strong>
+            <span>დღე</span>
+          </div>
+
+          <i></i>
+
+          <div>
+            <strong data-hours>00</strong>
+            <span>საათი</span>
+          </div>
+
+          <i></i>
+
+          <div>
+            <strong data-minutes>00</strong>
+            <span>წუთი</span>
+          </div>
+
+          <i></i>
+
+          <div>
+            <strong data-seconds>00</strong>
+            <span>წამი</span>
+          </div>
+
         </div>
 
-        <p class="final-message">დიდი სიყვარულით გელოდებით</p>
+
+        <p class="final-message">
+          დიდი სიყვარულით გელოდებით
+        </p>
+
       </div>
+
     </section>
 
   </div>
+
 </main>
+
 
 <script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/gsap.min.js"></script>
 <script src="script.js"></script>
+
 </body>
 </html>
