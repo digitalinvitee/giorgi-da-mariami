@@ -1614,12 +1614,68 @@ h1, h2, h3, h4, h5, h6, .details-title, .dress-content h2, .rsvp-content h2 {
   background-position: center;
   background-repeat: no-repeat;
 }
-.countdown-section .section-kicker {
+
+/* =========================================================
+   FINAL MOBILE TYPOGRAPHY + CARD SIZING
+   One authoritative mobile block — keep at the end
+========================================================= */
+
+.countdown-section .section-kicker,
+.invite-card .card-kicker {
   color: #4F5130 !important;
 }
-@media (max-width: 600px) {
 
-  /* ყველა მთავარი card heading — ერთი font + ერთი ზომა */
+.map-note {
+  font-weight: 700 !important;
+}
+
+.dress-note {
+  font-weight: 700 !important;
+}
+
+@media (max-width: 600px) {
+  .arch-section {
+    width: min(84vw, 390px) !important;
+    max-width: none !important;
+  }
+
+  .details-section {
+    width: min(88vw, 460px) !important;
+  }
+
+  .dress-section {
+    width: min(92vw, 540px) !important;
+  }
+
+  .rsvp-section {
+    width: min(92vw, 480px) !important;
+  }
+
+  .countdown-section {
+    width: min(94vw, 620px) !important;
+  }
+
+  .arch-content {
+    padding: 15% 9% 12% !important;
+  }
+
+  .arch-invite-title {
+    font-size: 1.38rem !important;
+    line-height: 1.08 !important;
+    white-space: nowrap !important;
+  }
+
+  .arch-invite-text {
+    font-size: .84rem !important;
+    line-height: 1.58 !important;
+  }
+
+  .arch-date .date-day,
+  .arch-date .date-month,
+  .arch-date .date-year {
+    font-size: 1.3rem !important;
+  }
+
   .details-title,
   .dress-content h2,
   .rsvp-content h2,
@@ -1631,79 +1687,64 @@ h1, h2, h3, h4, h5, h6, .details-title, .dress-content h2, .rsvp-content h2 {
     letter-spacing: 0 !important;
   }
 
-  /* ძვირფასო სტუმრებო — უფრო პატარა, რომ invitation card-ში ჩაეტიოს */
-  .invite-card .card-kicker {
-    font-family: var(--font-dumbadze) !important;
-    font-size: 1rem !important;
-    font-weight: 600 !important;
-    line-height: 1.15 !important;
-    letter-spacing: 0 !important;
-    margin-bottom: 7px !important;
-  }
-}
-@media (max-width: 600px) {
-  .arch-section {
-    width: min(98vw, 540px) !important;
-  }
-
-  .arch-content {
-    padding: 14% 9% 10% !important;
-  }
-
-  .small-script {
-    font-size: .72rem !important;
-    line-height: 1.4 !important;
-  }
-
-  .couple-names {
-    font-size: clamp(2rem, 9vw, 3rem) !important;
-    transform: translateY(-25px) !important;
-  }
-
-  .date-stack span {
-    font-size: 1.65rem !important;
-  }
-}
-@media (max-width: 600px) {
-
-  /* RSVP deadline — ერთი ხაზი */
-  .rsvp-intro {
-    white-space: nowrap !important;
-    font-size: .62rem !important;
-  }
-
-  /* Dress code note — ერთი ხაზი */
-  .dress-note {
-    white-space: nowrap !important;
-    font-size: .62rem !important;
-  }
-
-  /* ჩაცმის სტილი — bold + dark olive */
   .dress-content h2 {
-    font-weight: 700 !important;
     color: #4F5130 !important;
-  }
-}
-@media (max-width: 600px) {
-  .dress-note {
-    white-space: nowrap !important;
-    font-size: .62rem !important;
     font-weight: 700 !important;
   }
-}
-.invite-card .card-kicker {
-  color: #4F5130 !important;
-}
-@media (max-width: 600px) {
+
   .map-note {
     font-size: .76rem !important;
     font-weight: 700 !important;
   }
-}
-@media (max-width: 600px) {
+
+  .timeline-event time {
+    font-size: 1.45rem !important;
+  }
+
+  .timeline-info p {
+    font-size: .80rem !important;
+  }
+
+  .timeline-info .place,
+  .timeline-info a {
+    font-size: .69rem !important;
+  }
+
+  .rsvp-intro {
+    white-space: nowrap !important;
+    font-size: .64rem !important;
+  }
+
+  #rsvpForm label span,
+  #rsvpForm input,
+  #rsvpForm select,
+  #rsvpForm textarea {
+    font-size: .74rem !important;
+  }
+
+  .submit-btn {
+    font-size: .66rem !important;
+  }
+
+  .dress-content > p {
+    font-size: .76rem !important;
+  }
+
   .dress-note {
+    white-space: nowrap !important;
     font-size: .72rem !important;
     font-weight: 700 !important;
-    white-space: nowrap !important;
+  }
+
+  .countdown strong {
+    font-size: clamp(1.75rem, 8vw, 2.3rem) !important;
+  }
+
+  .countdown span {
+    font-size: .68rem !important;
+  }
+
+  .final-message {
+    font-size: .82rem !important;
   }
 }

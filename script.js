@@ -1162,95 +1162,101 @@
       1000
     );
   }
-
   /* =========================================================
      RSVP — GOOGLE SHEETS
   ========================================================= */
 
-  const rsvpForm =
-    $("#rsvpForm");
-
-  const formStatus =
-    $("#formStatus");
+  const rsvpForm = $("#rsvpForm");
+  const formStatus = $("#formStatus");
 
   const RSVP_URL =
-    "https://script.google.com/macros/s/AKfycbzLbL768IQ66qOJrnNxFyCx9ra-WJkNEsVG5t30l_Q1WMCvsKWbqgd-3Jd6PDclA6udxg/exec";
+    "https://script.google.com/macros/s/AKfycbzF2Jv6UW5uTRoR0diJ-i2WBPZEFS2ScXGSeVtjlH6DT72Zqt8jsWIxvGKxUn5ahRCaPA/exec";
 
-  rsvpForm?.addEventListener(
-    "submit",
-    async event => {
-      event.preventDefault();
+  if (rsvpForm) {
+    rsvpForm.addEventListener(
+      "submit",
+      async event => {
+        event.preventDefault();
 
-      if (
-        !rsvpForm.checkValidity()
-      ) {
-        rsvpForm.reportValidity();
-        return;
-      }
-
-      const submitButton =
-        $(".submit-btn", rsvpForm);
-
-      const data = {
-        name:
-          rsvpForm.elements.name?.value.trim() || "",
-
-        attendance:
-          rsvpForm.elements.attendance?.value || "",
-
-        message:
-          rsvpForm.elements.message?.value.trim() || ""
-      };
-
-      if (submitButton) {
-        submitButton.disabled = true;
-        submitButton.textContent =
-          "იგზავნება...";
-      }
-
-      if (formStatus) {
-        formStatus.textContent = "";
-      }
-
-      try {
-        await fetch(
-          RSVP_URL,
-          {
-            method: "POST",
-            mode: "no-cors",
-            headers: {
-              "Content-Type":
-                "text/plain;charset=utf-8"
-            },
-            body: JSON.stringify(data)
-          }
-        );
-
-        if (formStatus) {
-          formStatus.textContent =
-            "თქვენი პასუხი მიღებულია ♥";
+        if (!rsvpForm.checkValidity()) {
+          rsvpForm.reportValidity();
+          return;
         }
 
-        rsvpForm.reset();
-      } catch (error) {
-        console.error(
-          "RSVP submission failed:",
-          error
-        );
+        const submitButton =
+          $(".submit-btn", rsvpForm);
 
-        if (formStatus) {
-          formStatus.textContent =
-            "დაფიქსირდა შეცდომა. გთხოვთ, სცადოთ თავიდან.";
-        }
-      } finally {
+        const name =
+          rsvpForm.elements.name?.value.trim() || "";
+
+        const attendance =
+          rsvpForm.elements.attendance?.value || "";
+
+        const message =
+          rsvpForm.elements.message?.value.trim() || "";
+
+        const data = {
+          name,
+          attendance,
+          message
+        };
+
         if (submitButton) {
-          submitButton.disabled = false;
-          submitButton.textContent =
-            "პასუხის გაგზავნა";
+          submitButton.disabled = true;
+          submitButton.textContent = "იგზავნება...";
+        }
+
+        if (formStatus) {
+          formStatus.textContent = "იგზავნება...";
+        }
+
+        try {
+          await fetch(
+            RSVP_URL,
+            {
+              method: "POST",
+
+              mode: "no-cors",
+
+              headers: {
+                "Content-Type":
+                  "text/plain;charset=utf-8"
+              },
+
+              body:
+                JSON.stringify(data)
+            }
+          );
+
+          if (formStatus) {
+            formStatus.textContent =
+              "თქვენი პასუხი მიღებულია ♥";
+          }
+
+          rsvpForm.reset();
+
+        } catch (error) {
+          console.error(
+            "RSVP submission failed:",
+            error
+          );
+
+          if (formStatus) {
+            formStatus.textContent =
+              "დაფიქსირდა შეცდომა. გთხოვთ, სცადოთ თავიდან.";
+          }
+
+        } finally {
+          if (submitButton) {
+            submitButton.disabled = false;
+            submitButton.textContent =
+              "პასუხის გაგზავნა";
+          }
         }
       }
-    }
-  );
+    );
+  }
+
 
   /* =========================================================
      LOAD
@@ -1264,8 +1270,7 @@
           "invitation-locked"
         )
       ) {
-        document.body.style.overflowY =
-          "";
+        document.body.style.overflowY = "";
       }
     },
     {
