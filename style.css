@@ -1617,3 +1617,27 @@ h1, h2, h3, h4, h5, h6, .details-title, .dress-content h2, .rsvp-content h2 {
 .countdown-section .section-kicker {
   color: #4F5130 !important;
 }
+@media (max-width: 600px) {
+
+  /* ყველა მთავარი card heading — ერთი font + ერთი ზომა */
+  .details-title,
+  .dress-content h2,
+  .rsvp-content h2,
+  .countdown-section .section-kicker {
+    font-family: var(--font-dumbadze) !important;
+    font-size: 1.35rem !important;
+    font-weight: 600 !important;
+    line-height: 1.15 !important;
+    letter-spacing: 0 !important;
+  }
+
+  /* ძვირფასო სტუმრებო — უფრო პატარა, რომ invitation card-ში ჩაეტიოს */
+  .invite-card .card-kicker {
+    font-family: var(--font-dumbadze) !important;
+    font-size: 1rem !important;
+    font-weight: 600 !important;
+    line-height: 1.15 !important;
+    letter-spacing: 0 !important;
+    margin-bottom: 7px !important;
+  }
+}
