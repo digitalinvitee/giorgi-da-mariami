@@ -1748,3 +1748,27 @@ h1, h2, h3, h4, h5, h6, .details-title, .dress-content h2, .rsvp-content h2 {
     font-size: .82rem !important;
   }
 }
+.site-footer {
+  width: 100%;
+  padding: 28px 20px 34px;
+  text-align: center;
+}
+
+.site-footer p {
+  margin: 0;
+  font-family: var(--font-dumbadze);
+  font-size: 0.72rem;
+  font-weight: 500;
+  letter-spacing: 0.04em;
+  color: rgba(67, 43, 37, 0.65);
+}
+
+.site-footer span {
+  display: block;
+  margin-top: 5px;
+  font-family: var(--font-kupiura);
+  font-size: 0.9rem;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  color: #66683F;
+}
