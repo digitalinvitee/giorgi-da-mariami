@@ -300,18 +300,7 @@ a { color: inherit; }
   will-change: transform, opacity;
 }
 
-.envelope-flower {
-  position: absolute;
-  z-index: 9;
-  right: -1%;
-  bottom: -3%;
-  width: clamp(80px, 17vw, 145px);
-  opacity: 0;
-  transform: translate(32px, 22px) scale(.86);
-  filter: drop-shadow(0 7px 9px rgba(30, 20, 15, .12));
-  pointer-events: none;
-  will-change: transform, opacity;
-}
+
 
 .opening-scroll {
   position: absolute;
@@ -1078,7 +1067,6 @@ textarea { resize: vertical; min-height: 54px; }
   .envelope-stage { width: 106vw; transform: translateY(3.5svh); }
   .invite-card { left: 7%; width: 86%; height: 72%; bottom: 10%; padding: .7rem .8rem 2.35rem; }
   .invite-ring { bottom: -10%; width: 50px; }
-  .envelope-flower { right: -3%; bottom: -5%; width: 88px; }
 
   .invitation-flow { padding: 8px 0 30px; }
 
@@ -1132,7 +1120,6 @@ body {
 .invite-card,
 .envelope-flap,
 .wax-seal,
-.envelope-flower,
 .walk-world,
 .waiter-rig,
 .walk-waiter,
@@ -1221,11 +1208,7 @@ body {
   }
 
   /* Flower remains clearly visible after opening */
-  .envelope-flower {
-    right: -2%;
-    bottom: -5%;
-    width: clamp(96px, 27vw, 122px);
-  }
+ 
 
   .invite-card {
     left: 7.5%;
@@ -1368,9 +1351,7 @@ body {
     width: 4.9rem;
   }
 
-  .envelope-flower {
-    width: 92px;
-  }
+
 
   .walk-stage {
     height: clamp(410px, 58svh, 500px);
@@ -1624,15 +1605,6 @@ h6,
   justify-content: center;
 }
 
-.arch-bow {
-  position: absolute;
-  top: 2.2%;
-  left: 50%;
-  transform: translateX(-50%);
-  width: clamp(68px, 17vw, 96px);
-  margin: 0;
-  z-index: 3;
-}
 
 .couple-names {
   margin: 8% 0 0;
@@ -1876,11 +1848,7 @@ h6,
     font-size: 1rem;
   }
 
-  .arch-bow {
-    top: 1.8%;
-    width: clamp(66px, 22vw, 88px);
-  }
-
+  
   .couple-names {
     margin-top: 12%;
     font-size: clamp(2.35rem, 11vw, 3.5rem);
@@ -2162,17 +2130,7 @@ h6,
   text-align: center;
 }
 
-.arch-bow {
-  position: absolute;
-  top: 2%;
-  left: 50%;
-  z-index: 3;
 
-  width: clamp(60px, 14vw, 82px);
-  margin: 0;
-
-  transform: translateX(-50%);
-}
 
 .arch-invite-title {
   margin: 24px 0 16px;
@@ -2247,10 +2205,7 @@ h6,
     padding: 17% 10% 14%;
   }
 
-  .arch-bow {
-    top: 1.8%;
-    width: clamp(58px, 18vw, 76px);
-  }
+ 
 
   .arch-invite-title {
     margin: 21px 0 13px;
@@ -2304,10 +2259,7 @@ h6,
   justify-content: center;
 }
 
-.arch-bow {
-  top: 2.2%;
-  width: clamp(64px, 14vw, 90px);
-}
+
 
 /* Strong first line */
 .arch-invite-title {
@@ -2403,9 +2355,7 @@ h6,
     padding: 17% 11% 14%;
   }
 
-  .arch-bow {
-    width: clamp(62px, 19vw, 80px);
-  }
+  
 
   .arch-invite-title {
     margin-top: 34px;
@@ -2456,4 +2406,371 @@ h6,
   .arch-date {
     font-size: 1.34rem;
   }
+}
+/* =========================================
+   INVITATION TYPOGRAPHY — FINAL
+========================================= */
+
+.arch-content {
+  padding: 16% 11% 13%;
+  justify-content: center;
+}
+
+
+/* მთავარი სათაური */
+
+.arch-invite-title {
+  margin: 0 0 18px;
+
+  font-family: var(--font-dumbadze);
+  font-size: clamp(1.7rem, 4.4vw, 2.3rem);
+  font-weight: 600;
+
+  line-height: 1.08;
+  letter-spacing: .01em;
+
+  color: #F4ECE1;
+
+  white-space: nowrap;
+}
+
+
+/* მოწვევის ტექსტი */
+
+.arch-invite-text {
+  max-width: 320px;
+
+  margin: 0;
+
+  font-family: var(--font-dumbadze);
+  font-size: clamp(.9rem, 2.2vw, 1.08rem);
+  font-weight: 400;
+
+  line-height: 1.65;
+  letter-spacing: .01em;
+
+  color: rgba(244, 236, 225, .9);
+}
+
+
+/* თარიღი */
+
+.arch-date {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  margin-top: 24px;
+
+  font-family: var(--font-kupiura);
+
+  color: #C7C39B;
+}
+
+
+/* ყველა რიცხვი ერთნაირი ზომის */
+
+.arch-date .date-day,
+.arch-date .date-month,
+.arch-date .date-year {
+  font-size: clamp(1.35rem, 3.5vw, 1.75rem);
+  font-weight: 500;
+
+  line-height: 1;
+  letter-spacing: .04em;
+}
+
+
+/* ვერტიკალური ხაზები */
+
+.arch-date .date-divider {
+  width: 1px;
+  height: 14px;
+
+  margin: 6px 0;
+
+  background: rgba(199, 195, 155, .65);
+}
+
+
+/* =========================================
+   MOBILE
+========================================= */
+
+@media (max-width: 600px) {
+
+  .arch-content {
+    padding: 16% 9% 13%;
+  }
+
+  .arch-invite-title {
+    margin-bottom: 16px;
+
+    font-size: 1.5rem;
+    line-height: 1.08;
+
+    white-space: nowrap;
+  }
+
+  .arch-invite-text {
+    max-width: 270px;
+
+    font-size: .88rem;
+    line-height: 1.62;
+  }
+
+  .arch-date {
+    margin-top: 21px;
+  }
+
+  .arch-date .date-day,
+  .arch-date .date-month,
+  .arch-date .date-year {
+    font-size: 1.28rem;
+  }
+
+  .arch-date .date-divider {
+    height: 12px;
+    margin: 6px 0;
+  }
+}
+
+
+@media (max-width: 380px) {
+
+  .arch-invite-title {
+    font-size: 1.35rem;
+  }
+
+  .arch-invite-text {
+    font-size: .82rem;
+    line-height: 1.6;
+  }
+
+  .arch-date .date-day,
+  .arch-date .date-month,
+  .arch-date .date-year {
+    font-size: 1.18rem;
+  }
+}
+/* =========================================
+   DETAILS TYPOGRAPHY — FINAL
+========================================= */
+
+.details-content {
+  padding: 11% 11% 9%;
+  color: #F5EEE5;
+}
+
+
+/* მთავარი სათაური */
+
+.details-title {
+  margin: 0 0 8px;
+
+  font-family: var(--font-dumbadze);
+  font-size: clamp(2rem, 5.8vw, 3.15rem);
+  font-weight: 600;
+
+  line-height: 1.05;
+  letter-spacing: .005em;
+
+  color: #F5EEE5;
+}
+
+
+/* პატარა მინიშნება */
+
+.map-note {
+  max-width: 280px;
+
+  margin: 0 auto 24px;
+
+  font-family: var(--font-dumbadze);
+  font-size: clamp(.68rem, 1.55vw, .8rem);
+  font-weight: 400;
+
+  line-height: 1.5;
+
+  color: rgba(199, 195, 155, .82);
+}
+
+
+/* თითოეული ღონისძიება */
+
+.timeline-event {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  text-align: center;
+}
+
+
+/* დრო — მეორე მთავარი აქცენტი */
+
+.timeline-event time {
+  margin: 0 0 7px;
+
+  font-family: var(--font-kupiura);
+  font-size: clamp(1.65rem, 4.6vw, 2.35rem);
+  font-weight: 500;
+
+  line-height: 1;
+  letter-spacing: .03em;
+
+  color: #F5EEE5;
+}
+
+
+/* ღონისძიების სახელი */
+
+.timeline-event p {
+  margin: 0 0 6px;
+
+  font-family: var(--font-dumbadze);
+  font-size: clamp(.86rem, 2vw, 1.02rem);
+  font-weight: 600;
+
+  line-height: 1.35;
+
+  color: #F5EEE5;
+}
+
+
+/* ლოკაცია */
+
+.timeline-event .place,
+.timeline-event a {
+  font-family: var(--font-dumbadze);
+  font-size: clamp(.7rem, 1.65vw, .84rem);
+  font-weight: 400;
+
+  line-height: 1.45;
+
+  color: #C7C39B;
+
+  text-decoration: none;
+}
+
+
+/* მისამართი */
+
+.timeline-event a small {
+  margin-top: 3px;
+
+  font-size: .88em;
+  font-weight: 400;
+
+  color: rgba(199, 195, 155, .72);
+}
+
+
+/* გამყოფი ხაზი */
+
+.timeline-line {
+  display: block;
+
+  width: 1px;
+  height: clamp(22px, 4vw, 30px);
+
+  margin: 12px auto;
+
+  background: rgba(199, 195, 155, .5);
+}
+
+
+/* =========================================
+   MOBILE
+========================================= */
+
+@media (max-width: 600px) {
+
+  .details-content {
+    padding: 11% 10% 9%;
+  }
+
+  .details-title {
+    font-size: 1.85rem;
+  }
+
+  .map-note {
+    margin-bottom: 20px;
+    font-size: .7rem;
+  }
+
+  .timeline-event time {
+    font-size: 1.55rem;
+  }
+
+  .timeline-event p {
+    font-size: .84rem;
+  }
+
+  .timeline-event .place,
+  .timeline-event a {
+    font-size: .72rem;
+  }
+
+  .timeline-line {
+    height: 20px;
+    margin: 10px auto;
+  }
+}
+.details-title {
+  transform: translateY(-12px);
+}
+
+.map-note {
+  transform: translateY(-12px);
+}
+.rsvp-content h2,
+.rsvp-intro {
+  transform: translateY(-20px);
+}
+/* =========================================
+   RSVP — MOBILE POSITION FIX
+========================================= */
+
+@media (max-width: 600px) {
+
+  .rsvp-content h2,
+  .rsvp-content .rsvp-intro {
+    transform: translateY(-25px) !important;
+  }
+
+}
+.dress-content > p {
+  color: #F5EEE5 !important;
+  font-weight: 500;
+  opacity: 1;
+}
+
+.dress-content .dress-note {
+  color: #F5EEE5 !important;
+  font-weight: 500;
+  opacity: 1;
+}
+@media (max-width: 600px) {
+
+  .dancing-woman {
+    width: 44vw !important;
+    max-width: 205px !important;
+  }
+
+  .dancing-man {
+    width: 42vw !important;
+    max-width: 198px !important;
+  }
+
+  .dancing-couple {
+    width: 40vw !important;
+    max-width: 190px !important;
+  }
+
+  .tuba-player {
+    width: 41vw !important;
+    max-width: 195px !important;
+  }
+
 }

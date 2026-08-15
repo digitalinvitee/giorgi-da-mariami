@@ -50,7 +50,6 @@
   const seal = $("#waxSeal");
   const card = $("#inviteCard");
   const ring = $("#inviteRing");
-  const flower = $("#envelopeFlower");
   const hint = $("#openingScroll");
 
   let isOpen = false;
@@ -97,14 +96,7 @@
       });
     }
 
-    if (flower) {
-      gsap.set(flower, {
-        opacity: 0,
-        x: 22,
-        y: 16,
-        scale: .88
-      });
-    }
+    
 
     const tl = gsap.timeline({
       onComplete: unlockPage
@@ -170,34 +162,20 @@
         });
     }
 
-    if (ring) {
-      tl.to(
-        ring,
-        {
-          opacity: 1,
-          y: 0,
-          scale: 1,
-          duration: .48,
-          ease: "back.out(1.45)"
-        },
-        "-=.22"
-      );
-    }
-
-    if (flower) {
-      tl.to(
-        flower,
-        {
-          opacity: 1,
-          x: 0,
-          y: 0,
-          scale: 1,
-          duration: .55,
-          ease: "power2.out"
-        },
-        "-=.3"
-      );
-    }
+   if (ring) {
+  tl.to(
+    ring,
+    {
+      opacity: 1,
+      y: 22,  // ბეჭედი უფრო დაბლა გაჩერდება
+      scale: 1,
+      duration: .48,
+      ease: "back.out(1.45)"
+    },
+    "-=.22"
+  );
+}
+  
 
     if (hint) {
       tl.to(
@@ -941,7 +919,7 @@
 
       if (daysEl) {
         daysEl.textContent =
-          pad(days, 3);
+          pad(days, 2);
       }
 
       if (hoursEl) {
